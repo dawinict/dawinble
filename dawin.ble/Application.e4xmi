@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_XqkCQKknEeObFrG_clJBYA" elementId="">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_Zdy6cKknEeObFrG_clJBYA" elementId="kairos.kongde.trimmedwindow.kongdesensormonitoringetl" label="   Bird Safe" iconURI="platform:/plugin/kairos.kongde/icons/wig_32.png" x="10" y="10" width="500" height="500">
+    <persistedState key="styleOverride" value="8"/>
+    <tags>shellMaximized</tags>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_fFcUACpyEei2t9Lp1FSX3w" elementId="kairos.kongde.perspectivestack.0" selectedElement="_6Al0MBmmEemiZ7bbTGwSgg">
+      <children xsi:type="advanced:Perspective" xmi:id="_wyA1oCsxEei4GNg1egFDaA" elementId="kairos.kongde.perspective.topic" label="Topic">
+        <children xsi:type="basic:PartStack" xmi:id="_2tYn4CsxEei4GNg1egFDaA" elementId="kairos.kongde.partstack.4">
+          <tags>Topic</tags>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_OXgdMC_7EeiW-_WQruXfgw" elementId="kairos.kongde.perspective.config" label="Config" iconURI="platform:/plugin/kairos.kongde/icons/config16.png" tooltip="Configure">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_vTQskC_7EeiW-_WQruXfgw" elementId="kairos.kongde.partsashcontainer.0" containerData="10000" selectedElement="_y0k3MC_7EeiW-_WQruXfgw" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_y0k3MC_7EeiW-_WQruXfgw" elementId="kairos.kongde.partstack.0" containerData="3000" selectedElement="_3h_BgC_7EeiW-_WQruXfgw">
+            <children xsi:type="basic:Part" xmi:id="_3h_BgC_7EeiW-_WQruXfgw" elementId="kairos.kongde.part.config" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigPart" label="&#xc124;&#xc815;" iconURI="platform:/plugin/kairos.kongde/icons/config16.png" tooltip="&#xc124;&#xc815;"/>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_hj5u4DAiEeiW-_WQruXfgw" elementId="kairos.kongde.partstack.1">
+            <tags>Topic</tags>
+            <tags>NoAutoCollapse</tags>
+            <tags>Transform</tags>
+            <tags>Sensor</tags>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_Qx5dYEFREei_WbcqJTWTIw" elementId="kairos.kongde.perspective.sensor" label="AP List" iconURI="platform:/plugin/kairos.kongde/icons/beacon16.png" tooltip="AP List">
+        <children xsi:type="basic:Part" xmi:id="_LOiGAEFSEei_WbcqJTWTIw" elementId="kairos.kongde.part.sensordashboard" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorDashboardPart" label="Sensor Dashboard" iconURI="platform:/plugin/kairos.kongde/icons/beacon16.png" tooltip="Sensor Dashboard"/>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_6Al0MBmmEemiZ7bbTGwSgg" elementId="dawin.ble.perspective.dashboard" label="DashBoard">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_GOhJoBmnEemiZ7bbTGwSgg" elementId="dawin.ble.partsashcontainer.0" containerData="" selectedElement="_KyV6IBmnEemiZ7bbTGwSgg" horizontal="true">
+          <children xsi:type="basic:Part" xmi:id="_KyV6IBmnEemiZ7bbTGwSgg" elementId="dawin.ble.part.boardmenu" containerData="300" contributionURI="bundleclass://kairos.kongde/kairos.kongde.BoardMenuPart" label="BoardMenu"/>
+          <children xsi:type="basic:Part" xmi:id="_UUEHABmyEemiZ7bbTGwSgg" elementId="dawin.ble.part.0" containerData="1620" contributionURI="bundleclass://kairos.kongde/kairos.kongde.DashboardPart"/>
+          <children xsi:type="basic:Part" xmi:id="_jycR0Bm4EemiZ7bbTGwSgg" elementId="dawin.ble.part.1" containerData="1620" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPart">
+            <handlers xmi:id="_PyGCEDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.handler.9" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigAddHandler" command="_aySZEDCOEeiKOIqdSCXBWw"/>
+            <handlers xmi:id="_tjdZEDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.handler.10" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigDeleteHandler" command="_rPMQYDCOEeiKOIqdSCXBWw"/>
+            <menus xsi:type="menu:PopupMenu" xmi:id="_y4Cl0DBGEeiW-_WQruXfgw" elementId="kairos.kongde.popupmenu.config" label="config" iconURI="platform:/plugin/kairos.kongde/icons/page_white_text.png">
+              <children xsi:type="menu:HandledMenuItem" xmi:id="_OgujoDBIEeiW-_WQruXfgw" elementId="kairos.kongde.handledmenuitem.add" label="Add" iconURI="platform:/plugin/kairos.kongde/icons/plus16.png" command="_aySZEDCOEeiKOIqdSCXBWw"/>
+              <children xsi:type="menu:HandledMenuItem" xmi:id="_osj7kDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.handledmenuitem.delete" label="Delete" iconURI="platform:/plugin/kairos.kongde/icons/minus16.png" command="_rPMQYDCOEeiKOIqdSCXBWw"/>
+            </menus>
+          </children>
+        </children>
+      </children>
+    </children>
+    <handlers xmi:id="_DKc3cCswEei4GNg1egFDaA" elementId="kairos.kongde.handler.topichandler" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TopicHandler" command="_WwQ14CsvEei4GNg1egFDaA"/>
+    <handlers xmi:id="_o2z70CtAEei4GNg1egFDaA" elementId="kairos.kongde.handler.3" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TransformHandler" command="_qay3ECtAEei4GNg1egFDaA"/>
+    <handlers xmi:id="_6LcN4EFQEei_WbcqJTWTIw" elementId="kairos.kongde.handler.0" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPerspectiveHandler" command="_bJYEAEFQEei_WbcqJTWTIw"/>
+    <handlers xmi:id="_wGJjcEFREei_WbcqJTWTIw" elementId="kairos.kongde.handler.1" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigPerspectiveHandler" command="_jtaFIEFREei_WbcqJTWTIw"/>
+    <trimBars xmi:id="_Im5YMC_1EeiW-_WQruXfgw" elementId="kairos.kongde.trimbar.0" visible="false">
+      <children xsi:type="menu:ToolBar" xmi:id="_MSOacC_1EeiW-_WQruXfgw" elementId="kairos.kongde.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_eZNAkEFREei_WbcqJTWTIw" elementId="kairos.kongde.handledtoolitem.config" label="&#xc124;&#xc815;" iconURI="platform:/plugin/kairos.kongde/icons/config16.png" tooltip="&#xc124;&#xc815;" command="_jtaFIEFREei_WbcqJTWTIw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Z2NBYEFPEei_WbcqJTWTIw" elementId="kairos.kongde.handledtoolitem.broker" label="AP &#xb300;&#xc2dc;&#xbcf4;&#xb4dc;" iconURI="platform:/plugin/kairos.kongde/icons/beacon16.png" tooltip="AP &#xb300;&#xc2dc;&#xbcf4;&#xb4dc;" command="_bJYEAEFQEei_WbcqJTWTIw"/>
+      </children>
+    </trimBars>
+  </children>
+  <descriptors xmi:id="_F4PRYCtGEei4GNg1egFDaA" elementId="kairos.kongde.partdescriptor.topicpart" label="Topic" iconURI="platform:/plugin/kairos.kongde/icons/topic16.png" allowMultiple="true" category="Topic" closeable="true" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TopicPart">
+    <toolbar xmi:id="_JITT8CtGEei4GNg1egFDaA" elementId="kairos.kongde.toolbar.7"/>
+  </descriptors>
+  <descriptors xmi:id="_yYzOMC5bEeiwF-w59WDoRA" elementId="kairos.kongde.partdescriptor.transformpart" label="Transform" iconURI="platform:/plugin/kairos.kongde/icons/transform16.png" allowMultiple="true" category="Transform" closeable="true" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TransformPart">
+    <toolbar xmi:id="_4w708C5bEeiwF-w59WDoRA" elementId="kairos.kongde.toolbar.1"/>
+  </descriptors>
+  <descriptors xmi:id="_nYaUUDbqEei9B_9QC7KRjw" elementId="kairos.kongde.partdescriptor.sensorpart" label="AP" iconURI="platform:/plugin/kairos.kongde/icons/beacon16.png" allowMultiple="true" category="Sensor" closeable="true" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPart">
+    <toolbar xmi:id="_St0NMDbtEei9CP9QC7KRjw" elementId="kairos.kongde.toolbar.2"/>
+  </descriptors>
+  <descriptors xmi:id="_5ZZiQBmvEemiZ7bbTGwSgg" elementId="dawin.ble.partdescriptor.dashboard" label="DashBoard" contributionURI="bundleclass://kairos.kongde/kairos.kongde.DashboardPart"/>
+  <commands xmi:id="_bJYEAEFQEei_WbcqJTWTIw" elementId="kairos.kongde.command.sensorperspective" commandName="Sensor Perspective"/>
+  <commands xmi:id="_WwQ14CsvEei4GNg1egFDaA" elementId="kairos.kongde.command.topic" commandName="Topic Perspective"/>
+  <commands xmi:id="_qay3ECtAEei4GNg1egFDaA" elementId="kairos.kongde.command.transformperspective" commandName="Transform Perspective"/>
+  <commands xmi:id="_aySZEDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.command.configadd" commandName="Config Add"/>
+  <commands xmi:id="_rPMQYDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.command.configdelete" commandName="Config Delete"/>
+  <commands xmi:id="_jtaFIEFREei_WbcqJTWTIw" elementId="kairos.kongde.command.configperspective" commandName="Config Perspective"/>
+  <addons xmi:id="_RAyywEIGEeiu9MOs0mi4tw" elementId="kairos.kongde.addon.1" contributionURI="bundleclass://kairos.kongde/kairos.kongde.MqttCLientDarmon"/>
+  <addons xmi:id="_XqkCQaknEeObFrG_clJBYA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_XqkCQqknEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_XqkCQ6knEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_XqkCRKknEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_XqkCRaknEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_XqkCRqknEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_XqkCR6knEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_ruHB0Ct8EeiRVu-VzYMTxA" elementId="kairos.kongde.addon.0" contributionURI="bundleclass://kairos.kongde/kairos.kongde.PerspectiveChangeListener"/>
+</application:Application>
