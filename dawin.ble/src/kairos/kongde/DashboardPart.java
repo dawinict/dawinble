@@ -94,7 +94,7 @@ public class DashboardPart {
 	}
 	@Inject UISynchronize sync;
 	
-	static List<Tags> tagList;
+	static List<Tags> tagList = new ArrayList<Tags>();
 	List<Tags> selectedTagList = new ArrayList<Tags>();
 	Point selectedPoint = new Point(0, 0);
 	static List<Ap> apList;
@@ -643,6 +643,40 @@ public class DashboardPart {
         qMaxTime.setMaxResults(1);
         Tags tag = (Tags) qMaxTime.getSingleResult();
 
+        // 태그 리스트 중 중복 제거 
+        Query qTags = em.createQuery("select t from Tags t where t.time = :time");
+        qTags.setParameter("time", tag.getTime());
+        List<Tags> tagListTemp = qTags.getResultList();
+        tagList.clear();
+		for (Tags tag1 : tagListTemp) {
+			int cnt = 0;
+			for (Tags tag2 : tagList) {
+				if(tag2.getTagid() == tag1.getTagid()) {
+					if(tag1.getRssi() < tag2.getRssi()) { // tag2의 신호가 더 세면
+						tagList.remove(tag2);
+						tagList.add(tag1);
+					}
+					cnt++;
+					break;
+				}
+			}
+			if(cnt == 0) {
+				tagList.add(tag1);
+			}
+		}
+       
+        
+        activeTagCnt = 0;
+        sosTagCnt = 0;
+		for (Tags tag1 : tagList) {
+			activeTagCnt++;
+			if(tag1.getSos() != 0) {
+				sosTagCnt++;
+			}
+		}
+        
+
+		
         Query q = em.createQuery("select t.apid as apid, count(t.apid) As cnt from Tags t where t.time = :time group by t.apid");
         q.setParameter("time", tag.getTime());
         
@@ -657,18 +691,6 @@ public class DashboardPart {
         	tagCount.put(apid, count);
         }
 
-        Query qTags = em.createQuery("select t from Tags t where t.time = :time");
-        qTags.setParameter("time", tag.getTime());
-        tagList = qTags.getResultList();
-        activeTagCnt = 0;
-        sosTagCnt = 0;
-		for (Tags tag1 : tagList) {
-			activeTagCnt++;
-			if(tag1.getSos() != 0) {
-				sosTagCnt++;
-			}
-		}
-        
 		
         Query q2 = em.createQuery("select t from Ap t order by t.apid");
 		apList = q2.getResultList();
