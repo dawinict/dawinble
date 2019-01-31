@@ -520,6 +520,7 @@ public class SensorDashboardPart {
 
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
+		em.clear();
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
         qMaxTime.setFirstResult(0);
         qMaxTime.setMaxResults(1);

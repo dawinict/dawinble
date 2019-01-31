@@ -28,6 +28,9 @@
       <children xsi:type="advanced:Perspective" xmi:id="_6Al0MBmmEemiZ7bbTGwSgg" elementId="dawin.ble.perspective.dashboard" label="DashBoard">
         <children xsi:type="basic:Part" xmi:id="_oBcqkCTJEemdaL1joykn8A" elementId="dawin.ble.part.2" contributionURI="bundleclass://kairos.kongde/kairos.kongde.DashboardPart"/>
       </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_B32h4CUMEemirpglNwf5bA" elementId="dawin.ble.perspective.moteconfig" label="MoteConfig">
+        <children xsi:type="basic:Part" xmi:id="_IGhDkCUMEemirpglNwf5bA" elementId="dawin.ble.part.0" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPart"/>
+      </children>
     </children>
     <handlers xmi:id="_DKc3cCswEei4GNg1egFDaA" elementId="kairos.kongde.handler.topichandler" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TopicHandler" command="_WwQ14CsvEei4GNg1egFDaA"/>
     <handlers xmi:id="_o2z70CtAEei4GNg1egFDaA" elementId="kairos.kongde.handler.3" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TransformHandler" command="_qay3ECtAEei4GNg1egFDaA"/>

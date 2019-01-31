@@ -340,10 +340,10 @@ public class DashboardPart {
 		lblNewLabel11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-//		    	MPart part0 = partService.findPart("dawin.ble.part.1");
-//		    	partService.hidePart(part0);
-//		    	MPart part1 = partService.findPart("dawin.ble.part.0");
-//		    	partService.showPart(part1, PartState.ACTIVATE);
+		        MPerspective perspective = (MPerspective) modelService.find("dawin.ble.perspective.moteconfig", app);
+		        if (perspective != null) {
+		            partService.switchPerspective(perspective);
+		        }
 			}
 		});
 		lblNewLabel11.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
@@ -365,13 +365,10 @@ public class DashboardPart {
 		composite_19.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-//		    	MPart part1 = partService.findPart("dawin.ble.part.1");
-//		    	partService.hidePart(part1);
-//		    	//part1.setVisible(false);
-//		    	MPart part0 = partService.findPart("dawin.ble.part.0");
-//		    	//part0.setVisible(true);
-//		    	partService.showPart(part0, PartState.ACTIVATE);
-//		    	//sashContainer.setContainerData("20");
+		        MPerspective perspective = (MPerspective) modelService.find("dawin.ble.perspective.dashboard", app);
+		        if (perspective != null) {
+		            partService.switchPerspective(perspective);
+		        }
 			}
 		});
 		GridLayout gl_composite_19 = new GridLayout(1, false);
@@ -385,13 +382,10 @@ public class DashboardPart {
 		lblNewLabel13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-//		    	MPart part1 = partService.findPart("dawin.ble.part.1");
-//		    	partService.hidePart(part1);
-//		    	//part1.setVisible(false);
-//		    	MPart part0 = partService.findPart("dawin.ble.part.0");
-//		    	//part0.setVisible(true);
-//		    	partService.showPart(part0, PartState.ACTIVATE);
-//		    	//sashContainer.setContainerData("20");
+		        MPerspective perspective = (MPerspective) modelService.find("kairos.kongde.perspective.sensor", app);
+		        if (perspective != null) {
+		            partService.switchPerspective(perspective);
+		        }
 			}
 		});
 		lblNewLabel13.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
@@ -542,7 +536,7 @@ public class DashboardPart {
 		});
 		TableColumn tblclmnNewColumn_6 = tableViewerColumn_7.getColumn();
 		tblclmnNewColumn_6.setAlignment(SWT.CENTER);
-		tblclmnNewColumn_6.setWidth(400);
+		tblclmnNewColumn_6.setWidth(300);
 		tblclmnNewColumn_6.setText("Remark");
 		
 		TableViewerColumn tableViewerColumn_8 = new TableViewerColumn(tableViewer_1, SWT.NONE);
@@ -552,7 +546,21 @@ public class DashboardPart {
 				return null;
 			}
 			public String getText(Object element) {
-				return element == null ? "" :((Ap)element).getAct() +""  ;
+				String tmp = "";
+				switch (((Ap)element).getAct()) {
+				case 2:
+					tmp = "Active";
+					break;
+
+				case 1:
+					tmp = "Waiting";
+					break;
+
+				default:
+					tmp = "Inactive";
+					break;
+				}
+				return element == null ? "" :tmp  ;
 			}
 		});
 		TableColumn tblclmnNewColumn_7 = tableViewerColumn_8.getColumn();
@@ -615,7 +623,7 @@ public class DashboardPart {
 				});
 				TableColumn tblclmnNewColumn = tableViewerColumn_1.getColumn();
 				tblclmnNewColumn.setAlignment(SWT.CENTER);
-				tblclmnNewColumn.setWidth(100);
+				tblclmnNewColumn.setWidth(80);
 				tblclmnNewColumn.setText("Mote ID");
 				
 				TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);
@@ -630,7 +638,7 @@ public class DashboardPart {
 				});
 				TableColumn tblclmnNewColumn_1 = tableViewerColumn_2.getColumn();
 				tblclmnNewColumn_1.setAlignment(SWT.CENTER);
-				tblclmnNewColumn_1.setWidth(100);
+				tblclmnNewColumn_1.setWidth(80);
 				tblclmnNewColumn_1.setText("Tag ID");
 				
 				TableViewerColumn tableViewerColumn_3 = new TableViewerColumn(tableViewer, SWT.NONE);
@@ -645,7 +653,7 @@ public class DashboardPart {
 				});
 				TableColumn tblclmnNewColumn_2 = tableViewerColumn_3.getColumn();
 				tblclmnNewColumn_2.setAlignment(SWT.CENTER);
-				tblclmnNewColumn_2.setWidth(100);
+				tblclmnNewColumn_2.setWidth(80);
 				tblclmnNewColumn_2.setText("Battery");
 				
 				TableViewerColumn tableViewerColumn_4 = new TableViewerColumn(tableViewer, SWT.NONE);
@@ -660,7 +668,7 @@ public class DashboardPart {
 				});
 				TableColumn tblclmnNewColumn_3 = tableViewerColumn_4.getColumn();
 				tblclmnNewColumn_3.setAlignment(SWT.CENTER);
-				tblclmnNewColumn_3.setWidth(100);
+				tblclmnNewColumn_3.setWidth(80);
 				tblclmnNewColumn_3.setText("RSSI");
 				
 				TableViewerColumn tableViewerColumn_5 = new TableViewerColumn(tableViewer, SWT.NONE);
@@ -670,12 +678,22 @@ public class DashboardPart {
 						return null;
 					}
 					public String getText(Object element) {
-						return element == null ? "" :((Tags)element).getSos() +""  ;
+						String tmp = "";
+						switch (((Tags)element).getSos()) {
+						case 0:
+							tmp = "";
+							break;
+						default:
+							tmp = "SOS";
+							break;
+						}
+						return element == null ? "" :tmp  ;
+						//return element == null ? "" :((Tags)element).getSos() +""  ;
 					}
 				});
 				TableColumn tblclmnNewColumn_4 = tableViewerColumn_5.getColumn();
 				tblclmnNewColumn_4.setAlignment(SWT.CENTER);
-				tblclmnNewColumn_4.setWidth(100);
+				tblclmnNewColumn_4.setWidth(80);
 				tblclmnNewColumn_4.setText("SOS");
 				tableViewer.setContentProvider(new ContentProvider());
 		tableViewer_1.setContentProvider(new ContentProvider_1());
@@ -736,6 +754,7 @@ public class DashboardPart {
 
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
+		em.clear();
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
         qMaxTime.setFirstResult(0);
         qMaxTime.setMaxResults(1);
