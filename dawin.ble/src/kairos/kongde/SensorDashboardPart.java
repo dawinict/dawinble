@@ -82,7 +82,7 @@ public class SensorDashboardPart {
 	@Inject
 	private MApplication app;
 	
-	List<Tags> tagList;
+	List<Tags> tagList = new ArrayList<Tags>();
 	List<Tags> selectedTagList = new ArrayList<Tags>();
 	Point selectedPoint = new Point(0, 0);
 	List<Ap> apList;
@@ -96,8 +96,8 @@ public class SensorDashboardPart {
  
 	Bundle bundle = FrameworkUtil.getBundle(this.getClass());
     // use the org.eclipse.core.runtime.Path as import
-    URL url2 = FileLocator.find(bundle, new Path("icons/box_replacedtime.png"), null);
-    ImageDescriptor box_replacedtime = ImageDescriptor.createFromURL(url2);
+    URL url2 = FileLocator.find(bundle, new Path("icons/slice_page2_1.png"), null);
+    ImageDescriptor slice_page2_1 = ImageDescriptor.createFromURL(url2);
 
     URL url3 = FileLocator.find(bundle, new Path("icons/box_long.png"), null);
     ImageDescriptor box_long = ImageDescriptor.createFromURL(url3);
@@ -111,13 +111,13 @@ public class SensorDashboardPart {
     URL url6 = FileLocator.find(bundle, new Path("icons/icon_sensor.png"), null);
     ImageDescriptor icon_sensor = ImageDescriptor.createFromURL(url6);
 
-    URL url7 = FileLocator.find(bundle, new Path("icons/icon_active.png"), null);
+    URL url7 = FileLocator.find(bundle, new Path("icons/moteicon_active.png"), null);
     ImageDescriptor icon_active = ImageDescriptor.createFromURL(url7);
 
-    URL url8 = FileLocator.find(bundle, new Path("icons/icon_lowbattery copy.png"), null);
+    URL url8 = FileLocator.find(bundle, new Path("icons/moteicon_inactive.png"), null);
     ImageDescriptor icon_inactive = ImageDescriptor.createFromURL(url8);
  
-    URL url9 = FileLocator.find(bundle, new Path("icons/icon_lowbattery.png"), null);
+    URL url9 = FileLocator.find(bundle, new Path("icons/moteicon_lowbattery.png"), null);
     ImageDescriptor icon_lowbattery = ImageDescriptor.createFromURL(url9);
 
     URL url10 = FileLocator.find(bundle, new Path("icons/icon_sos.png"), null);
@@ -129,10 +129,26 @@ public class SensorDashboardPart {
     URL url12 = FileLocator.find(bundle, new Path("icons/icon_emergency.png"), null);
     ImageDescriptor icon_emergency = ImageDescriptor.createFromURL(url12);
     
+    URL url13 = FileLocator.find(bundle, new Path("icons/slice_page2_2.png"), null);
+    ImageDescriptor slice_page2_2 = ImageDescriptor.createFromURL(url13);
+    
+    URL url14 = FileLocator.find(bundle, new Path("icons/category_mote.png"), null);
+    ImageDescriptor category_mote = ImageDescriptor.createFromURL(url14);
+
+    URL url15 = FileLocator.find(bundle, new Path("icons/popup_inactive_1.png"), null);
+    ImageDescriptor popup_inactive_1 = ImageDescriptor.createFromURL(url15);
+
+    URL url16 = FileLocator.find(bundle, new Path("icons/Triangle.png"), null);
+    ImageDescriptor Triangle = ImageDescriptor.createFromURL(url16);
+
+    URL url17 = FileLocator.find(bundle, new Path("icons/Triangle2.png"), null);
+    ImageDescriptor Triangle2 = ImageDescriptor.createFromURL(url17);
+
     Image image_active ;
     Image image_inactive ;
     Image image_lowbattery ;
     Image image_sos ;
+    Image image_popup_inactive_1;
     
     Label lblApActive;
     Label lblApInactive;
@@ -148,12 +164,14 @@ public class SensorDashboardPart {
 	Label lblNewLabel_7;
 	Label lblNewLabel_8;
 	Label lblNewLabel_19;
-	
+	Label lblNewLabel_24;
+
+	ResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
     @PostConstruct
 	public void postConstruct(Composite parent) {
 		parent.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		ResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
 //        URL url = FileLocator.find(bundle, new Path("icons/floor.jpg"), null);
         URL url = FileLocator.find(bundle, new Path("icons/map.png"), null);
@@ -163,149 +181,82 @@ public class SensorDashboardPart {
 		image_inactive = resourceManager.createImage(icon_inactive);
 		image_lowbattery = resourceManager.createImage(icon_lowbattery);
 		image_sos = resourceManager.createImage(icon_sos);
-		
+		image_popup_inactive_1 = resourceManager.createImage(popup_inactive_1);
 		
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 		
 		Composite composite_1 = new Composite(composite, SWT.NONE);
+		composite_1.setLayout(null);
 		GridData gd_composite_1 = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
-		gd_composite_1.minimumWidth = 1780;
+		gd_composite_1.minimumHeight = 268;
+		gd_composite_1.heightHint = 268;
+		gd_composite_1.widthHint = 1920;
+		gd_composite_1.minimumWidth = 1920;
 		composite_1.setLayoutData(gd_composite_1);
-		GridLayout gl_composite_1 = new GridLayout(2, false);
-		gl_composite_1.marginWidth = 0;
-		gl_composite_1.marginHeight = 0;
-		gl_composite_1.horizontalSpacing = 0;
-		composite_1.setLayout(gl_composite_1);
+		composite_1.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		composite_1.setBackgroundImage(resourceManager.createImage(slice_page2_1));
 		
-		Composite composite_3 = new Composite(composite_1, SWT.NONE);
-		GridData gd_composite_3 = new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1);
-		gd_composite_3.heightHint = 226;
-		gd_composite_3.widthHint = 633;
-		composite_3.setLayoutData(gd_composite_3);
-		GridLayout gl_composite_3 = new GridLayout(2, false);
-		gl_composite_3.marginLeft = 60;
-		gl_composite_3.verticalSpacing = 0;
-		gl_composite_3.marginHeight = 0;
-		gl_composite_3.horizontalSpacing = 0;
-		gl_composite_3.marginWidth = 0;
-		composite_3.setLayout(gl_composite_3);
-		composite_3.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		composite_3.setBackgroundImage(resourceManager.createImage(box_replacedtime));
-		
-		Label lblNewLabel = new Label(composite_3, SWT.NONE);
-		lblNewLabel.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
-		lblNewLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1));
-		lblNewLabel.setText("Replaced");
-		lblNewLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		lblNewLabel_7 = new Label(composite_3, SWT.NONE);
-		lblNewLabel_7.setFont(new Font(null, "¸¼Àº °íµñ", 24, SWT.NORMAL));
-		lblNewLabel_7.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1));
+		lblNewLabel_7 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_7.setLocation(350, 60);
+		lblNewLabel_7.setSize(152, 45);
+		lblNewLabel_7.setFont(new Font(null, "¸¼Àº °íµñ", 28, SWT.NORMAL));
 		lblNewLabel_7.setText("New Label");
 		lblNewLabel_7.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblNewLabel_7.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		
-		Label lblNewLabel_5 = new Label(composite_3, SWT.NONE);
-		lblNewLabel_5.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true, 1, 1));
-		lblNewLabel_5.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
-		lblNewLabel_5.setText("Time");
-		lblNewLabel_5.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		lblNewLabel_8 = new Label(composite_3, SWT.NONE);
-		lblNewLabel_8.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
-		lblNewLabel_8.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
+		lblNewLabel_8 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_8.setLocation(350, 100);
+		lblNewLabel_8.setSize(244, 68);
+		lblNewLabel_8.setFont(new Font(null, "¸¼Àº °íµñ", 44, SWT.NORMAL));
 		lblNewLabel_8.setText("New Label");
 		lblNewLabel_8.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblNewLabel_8.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		
-		Composite composite_4 = new Composite(composite_1, SWT.NONE);
-		GridLayout gl_composite_4 = new GridLayout(12, false);
-		gl_composite_4.marginHeight = 30;
-		gl_composite_4.marginLeft = 60;
-		composite_4.setLayout(gl_composite_4);
-		GridData gd_composite_4 = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
-		gd_composite_4.heightHint = 226;
-		gd_composite_4.widthHint = 1148;
-		composite_4.setLayoutData(gd_composite_4);
-		composite_4.setBounds(0, 0, 64, 64);
-		composite_4.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		composite_4.setBackgroundImage(resourceManager.createImage(box_long));
-		
-		Label lblNewLabel_9 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_9.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 4, 1));
-		lblNewLabel_9.setText("Total");
-		lblNewLabel_9.setFont(new Font(null, "¸¼Àº °íµñ", 20, SWT.NORMAL));
-		lblNewLabel_9.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_18 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_18.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 4, 1));
-		lblNewLabel_18.setText("SOS");
-		lblNewLabel_18.setFont(new Font(null, "¸¼Àº °íµñ", 20, SWT.NORMAL));
-		lblNewLabel_18.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_28 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_28.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 4, 1));
-		lblNewLabel_28.setText("Emergency Zone");
-		lblNewLabel_28.setFont(new Font(null, "¸¼Àº °íµñ", 20, SWT.NORMAL));
-		lblNewLabel_28.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_15 = new Label(composite_4, SWT.NONE);
-		
-		Label lblNewLabel_17 = new Label(composite_4, SWT.NONE);
-		GridData gd_lblNewLabel_17 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblNewLabel_17.heightHint = 64;
-		gd_lblNewLabel_17.widthHint = 49;
-		lblNewLabel_17.setLayoutData(gd_lblNewLabel_17);
-		lblNewLabel_17.setText("");
-		lblNewLabel_17.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_17.setBackgroundImage(resourceManager.createImage(icon_total));
-		
-		lblNewLabel_19 = new Label(composite_4, SWT.NONE);
+		lblNewLabel_19 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_19.setLocation(880, 110);
+		lblNewLabel_19.setSize(44, 54);
 		lblNewLabel_19.setText("48");
-		lblNewLabel_19.setFont(new Font(null, "¸¼Àº °íµñ", 30, SWT.NORMAL));
+		lblNewLabel_19.setFont(new Font(null, "¸¼Àº °íµñ", 40, SWT.NORMAL));
 		lblNewLabel_19.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblNewLabel_19.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		
-		Label lblNewLabel_20 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_20.setText("Person");
-		lblNewLabel_20.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_21 = new Label(composite_4, SWT.NONE);
-		GridData gd_lblNewLabel_21 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblNewLabel_21.heightHint = 64;
-		gd_lblNewLabel_21.widthHint = 56;
-		lblNewLabel_21.setLayoutData(gd_lblNewLabel_21);
-		lblNewLabel_21.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_21.setBackgroundImage(resourceManager.createImage(icon_emergency));
-		
-		Label lblNewLabel_24 = new Label(composite_4, SWT.NONE);
+		lblNewLabel_24 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_24.setLocation(1280, 110);
+		lblNewLabel_24.setSize(36, 54);
 		lblNewLabel_24.setText(" 0");
-		lblNewLabel_24.setFont(new Font(null, "¸¼Àº °íµñ", 30, SWT.NORMAL));
+		lblNewLabel_24.setFont(new Font(null, "¸¼Àº °íµñ", 40, SWT.NORMAL));
 		lblNewLabel_24.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblNewLabel_24.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		
-		Label lblNewLabel_26 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_26.setText("Person");
-		lblNewLabel_26.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		new Label(composite_4, SWT.NONE);
-		
-		Label lblNewLabel_27 = new Label(composite_4, SWT.NONE);
-		
-		Label lblNewLabel_25 = new Label(composite_4, SWT.NONE);
-		GridData gd_lblNewLabel_25 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_lblNewLabel_25.heightHint = 64;
-		gd_lblNewLabel_25.widthHint = 56;
-		lblNewLabel_25.setLayoutData(gd_lblNewLabel_25);
-		lblNewLabel_25.setText("");
-		lblNewLabel_25.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_25.setBackgroundImage(resourceManager.createImage(icon_emergency));
-		
-		Label lblNewLabel_10 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_10.setText("New Label");
+		Label lblNewLabel_10 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_10.setLocation(1670, 110);
+		lblNewLabel_10.setSize(36, 54);
 		lblNewLabel_10.setText(" 0");
-		lblNewLabel_10.setFont(new Font(null, "¸¼Àº °íµñ", 30, SWT.NORMAL));
+		lblNewLabel_10.setFont(new Font(null, "¸¼Àº °íµñ", 40, SWT.NORMAL));
 		lblNewLabel_10.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblNewLabel_10.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		
-		Label lblNewLabel_12 = new Label(composite_4, SWT.NONE);
-		lblNewLabel_12.setText("Person");
-		lblNewLabel_12.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblNewLabel = new Label(composite_1, SWT.NONE);
+		lblNewLabel.setBounds(1050, 133, 18, 13);
+		lblNewLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		lblNewLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		
+		lblNewLabel_1 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_1.setBounds(1090, 130, 56, 15);
+		lblNewLabel_1.setText("0");
+		lblNewLabel_1.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		lblNewLabel_1.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		
+		lblNewLabel_2 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_2.setBounds(1450, 133, 18, 13);
+		lblNewLabel_2.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		lblNewLabel_2.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		
+		lblNewLabel_3 = new Label(composite_1, SWT.NONE);
+		lblNewLabel_3.setBounds(1490, 130, 56, 15);
+		lblNewLabel_3.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		lblNewLabel_3.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		Composite composite_21 = new Composite(composite, SWT.NONE);
 		composite_21.setLayout(new GridLayout(3, false));
@@ -313,7 +264,7 @@ public class SensorDashboardPart {
 				
 				Composite composite_22 = new Composite(composite_21, SWT.NONE);
 				GridData gd_composite_22 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-				gd_composite_22.widthHint = 100;
+				gd_composite_22.widthHint = 200;
 				composite_22.setLayoutData(gd_composite_22);
 				composite_22.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 				
@@ -324,11 +275,11 @@ public class SensorDashboardPart {
 					public void mouseDown(MouseEvent e) {
 						selectedTagList.clear();
 						for (Ap ap : apList) {
-							if(ap.getX()  < e.x && e.x < ap.getX() + 60 && ap.getY()  < e.y && e.y < ap.getY() + 60) {
+							if(ap.getX()  < e.x && e.x < ap.getX() + 100 && ap.getY()  < e.y && e.y < ap.getY() + 100) {
 								selectedPoint.x = ap.getX();
 								selectedPoint.y = ap.getY();
 								for (Tags tag1 : tagList) {
-									activeTagCnt++;
+									
 									if(tag1.getApid() == ap.getApid()) {
 										selectedTagList.add(tag1);
 									}
@@ -350,25 +301,27 @@ public class SensorDashboardPart {
 								
 								if(apList != null) {
 									for(Ap ap : apList) {
-										if(ap.getBatt() < 0.3 && ap.getAct() == 2) {
+										if(ap.getBatt() < 0.3 && ap.getAct() == 2) {	// Low Battery
 											event.gc.drawImage(image_lowbattery, ap.getX(), ap.getY());
 											event.gc.setBackground(new Color(event.display, new RGB(242, 165, 0)));
-										}else if(ap.getAct() == 2) {
+										}else if(ap.getAct() == 2) {	// Active
 											//event.gc.setBackground(new Color(event.display, new RGB(0, 255, 0)));
 											event.gc.drawImage(image_active, ap.getX(), ap.getY());
 											event.gc.setBackground(new Color(event.display, new RGB(48, 138, 249)));
-										}else {
+										}else {	// InActive
 											//event.gc.setBackground(new Color(event.display, new RGB(255, 0, 0)));
 											event.gc.drawImage(image_inactive, ap.getX(), ap.getY());
 											event.gc.setBackground(new Color(event.display, new RGB(167, 167, 167)));
 										}
 										//event.gc.fillOval(ap.getX()-25, ap.getY()-25, 50, 50);
 										
+										// AP ID ±×¸®±â
 										//event.gc.setBackground(event.display.getSystemColor(SWT.COLOR_TRANSPARENT));
 										event.gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-										event.gc.drawText("#"+ap.getApid(), ap.getX()+50, ap.getY()+70);
+										event.gc.drawText("#"+ap.getApid(), ap.getX()+70, ap.getY()+70);
+										// APÀÇ Tag °¹¼ö ±×¸®±â
 										if(tagCount.get(ap.getApid()) != null) {
-											event.gc.drawText(""+tagCount.get(ap.getApid()), ap.getX()+55, ap.getY()+40);
+											event.gc.drawText(""+tagCount.get(ap.getApid()), ap.getX()+70, ap.getY()+110);
 										}
 									}
 									
@@ -384,15 +337,27 @@ public class SensorDashboardPart {
 				//					}
 									
 									if(selectedTagList.size() > 0) {
-										event.gc.setBackground(new Color(event.display, new RGB(255, 255, 0)));
-										//event.gc.fillOval(ap.getX()-25, ap.getY()-25, 50, 50);
+										event.gc.drawImage(image_popup_inactive_1, selectedPoint.x+50, selectedPoint.y);
+										
+										
+										event.gc.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 										event.gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
 										
 										int fontHeight = 14;
-										int pointY = 10;
+										int pointX = 130;
+										int pointY = 80;
+										int row = 0;
 										for (Tags tag : selectedTagList) {
-											event.gc.drawText("Tag:"+tag.getTagid()+" , RSSI:"+tag.getRssi(), selectedPoint.x+40, selectedPoint.y + pointY+20);
+											
+											//event.gc.drawText("Tag:"+tag.getTagid()+" , RSSI:"+tag.getRssi(), selectedPoint.x+150, selectedPoint.y + pointY+20);
+											event.gc.drawText(""+tag.getTagid() , selectedPoint.x+pointX, selectedPoint.y + pointY);
+											row++;
 											pointY = pointY + fontHeight;
+											if(row == 10) {
+												row = 0;
+												pointX = pointX + 50;
+												pointY = 80;
+											}
 										}
 				
 									}
@@ -402,330 +367,90 @@ public class SensorDashboardPart {
 						});
 		
 		Composite composite_2 = new Composite(composite, SWT.NONE);
-		GridData gd_composite_2 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		GridData gd_composite_2 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		gd_composite_2.widthHint = 1800;
 		gd_composite_2.heightHint = 150;
 		composite_2.setLayoutData(gd_composite_2);
-		composite_2.setLayout(new GridLayout(4, false));
+		composite_2.setLayout(new GridLayout(2, false));
 		
 		Composite composite_5 = new Composite(composite_2, SWT.NONE);
+		GridData gd_composite_5 = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_composite_5.minimumWidth = 999;
+		gd_composite_5.heightHint = 142;
+		gd_composite_5.widthHint = 999;
+		composite_5.setLayoutData(gd_composite_5);
+		composite_5.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		composite_5.setBackgroundImage(resourceManager.createImage(slice_page2_2));
 		
-		Button btnNewButton = new Button(composite_5, SWT.NONE);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
+		Label lblBack = new Label(composite_5, SWT.NONE);
+		lblBack.addMouseListener(new MouseAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void mouseDown(MouseEvent e) {
 		        MPerspective perspective = (MPerspective) modelService.find("dawin.ble.perspective.dashboard", app);
 		        if (perspective != null) {
 		            partService.switchPerspective(perspective);
 		        }
-
 			}
 		});
-		btnNewButton.setBounds(0, 0, 76, 25);
-		btnNewButton.setText("Board1");
+		lblBack.setBounds(41, 50, 69, 54);
+		lblBack.setText("");
+		lblBack.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
-		Composite composite_6 = new Composite(composite_2, SWT.NONE);
-		GridData gd_composite_6 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_6.heightHint = 140;
-		gd_composite_6.widthHint = 472;
-		composite_6.setLayoutData(gd_composite_6);
-		GridLayout gl_composite_6 = new GridLayout(7, false);
-		gl_composite_6.marginTop = 15;
-		gl_composite_6.marginRight = 5;
-		gl_composite_6.marginLeft = 45;
-		composite_6.setLayout(gl_composite_6);
-		composite_6.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		composite_6.setBackgroundImage(resourceManager.createImage(smallbox));
-		
-		Composite composite_9 = new Composite(composite_6, SWT.NONE);
-		GridData gd_composite_9 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_9.widthHint = 80;
-		composite_9.setLayoutData(gd_composite_9);
-		composite_9.setBounds(0, 0, 64, 64);
-		composite_9.setLayout(new GridLayout(1, false));
-		composite_9.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_2 = new Label(composite_9, SWT.NONE);
-		GridData gd_lblNewLabel_2 = new GridData(SWT.CENTER, SWT.FILL, false, false, 1, 1);
-		gd_lblNewLabel_2.heightHint = 45;
-		gd_lblNewLabel_2.widthHint = 50;
-		lblNewLabel_2.setLayoutData(gd_lblNewLabel_2);
-		lblNewLabel_2.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_2.setBackgroundImage(resourceManager.createImage(icon_mote));
-		
-		Label lblNewLabel_3 = new Label(composite_9, SWT.NONE);
-		lblNewLabel_3.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_3.setAlignment(SWT.CENTER);
-		lblNewLabel_3.setText("Mote");
-		lblNewLabel_3.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label label = new Label(composite_6, SWT.SEPARATOR | SWT.VERTICAL);
-		label.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Composite composite_10 = new Composite(composite_6, SWT.NONE);
-		GridData gd_composite_10 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_10.widthHint = 80;
-		composite_10.setLayoutData(gd_composite_10);
-		composite_10.setBounds(0, 0, 64, 64);
-		composite_10.setLayout(new GridLayout(1, false));
-		composite_10.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		lblApActive = new Label(composite_10, SWT.NONE);
+		lblApActive = new Label(composite_5, SWT.NONE);
 		lblApActive.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
 		lblApActive.setAlignment(SWT.CENTER);
-		lblApActive.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblApActive.setBounds(0, 0, 100, 103);
+		lblApActive.setBounds(230, 50, 41, 61);
 		lblApActive.setText(" 8");
 		lblApActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
-		Label lblNewLabel_1 = new Label(composite_10, SWT.NONE);
-		lblNewLabel_1.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_1.setAlignment(SWT.CENTER);
-		lblNewLabel_1.setBounds(0, 0, 56, 15);
-		lblNewLabel_1.setText("Active");
-		lblNewLabel_1.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label label_1 = new Label(composite_6, SWT.SEPARATOR | SWT.VERTICAL);
-		
-		Composite composite_11 = new Composite(composite_6, SWT.NONE);
-		GridData gd_composite_11 = new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 1);
-		gd_composite_11.widthHint = 80;
-		composite_11.setLayoutData(gd_composite_11);
-		composite_11.setBounds(0, 0, 64, 64);
-		composite_11.setLayout(new GridLayout(1, false));
-		composite_11.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		lblApInactive = new Label(composite_11, SWT.NONE);
+		lblApInactive = new Label(composite_5, SWT.NONE);
 		lblApInactive.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
 		lblApInactive.setAlignment(SWT.CENTER);
-		lblApInactive.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblApInactive.setBounds(0, 0, 100, 103);
+		lblApInactive.setBounds(340, 50, 41, 61);
 		lblApInactive.setText(" 8");
 		lblApInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
-		Label lblNewLabel_4 = new Label(composite_11, SWT.NONE);
-		lblNewLabel_4.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_4.setAlignment(SWT.CENTER);
-		lblNewLabel_4.setBounds(0, 0, 56, 15);
-		lblNewLabel_4.setText("Inactive");
-		lblNewLabel_4.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label label_2 = new Label(composite_6, SWT.SEPARATOR | SWT.VERTICAL);
-		
-		Composite composite_12 = new Composite(composite_6, SWT.NONE);
-		GridData gd_composite_12 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_12.widthHint = 80;
-		composite_12.setLayoutData(gd_composite_12);
-		composite_12.setBounds(0, 0, 64, 64);
-		composite_12.setLayout(new GridLayout(1, false));
-		composite_12.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-
-		lblApLow = new Label(composite_12, SWT.NONE);
-		lblApLow.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
-		lblApLow.setAlignment(SWT.CENTER);
-		lblApLow.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblApLow.setBounds(0, 0, 100, 103);
-		lblApLow.setText(" 8");
-		lblApLow.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_6 = new Label(composite_12, SWT.NONE);
-		lblNewLabel_6.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_6.setAlignment(SWT.CENTER);
-		lblNewLabel_6.setBounds(0, 0, 56, 15);
-		lblNewLabel_6.setText("Low");
-		lblNewLabel_6.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+				lblApLow = new Label(composite_5, SWT.NONE);
+				lblApLow.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
+				lblApLow.setAlignment(SWT.CENTER);
+				lblApLow.setBounds(460, 50, 41, 61);
+				lblApLow.setText(" 8");
+				lblApLow.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+				
+				lblTagActive = new Label(composite_5, SWT.NONE);
+				lblTagActive.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
+				lblTagActive.setAlignment(SWT.CENTER);
+				lblTagActive.setBounds(660, 50, 41, 61);
+				lblTagActive.setText(" 8");
+				lblTagActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+				
+				lblTagInactive = new Label(composite_5, SWT.NONE);
+				lblTagInactive.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
+				lblTagInactive.setAlignment(SWT.CENTER);
+				lblTagInactive.setBounds(770, 50, 41, 61);
+				lblTagInactive.setText(" 8");
+				lblTagInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+				
+						lblTagLow = new Label(composite_5, SWT.NONE);
+						lblTagLow.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
+						lblTagLow.setAlignment(SWT.CENTER);
+						lblTagLow.setBounds(880, 50, 41, 61);
+						lblTagLow.setText(" 8");
+						lblTagLow.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 
 		
-		Composite composite_7 = new Composite(composite_2, SWT.NONE);
-		GridData gd_composite_7 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_7.heightHint = 140;
-		gd_composite_7.widthHint = 472;
-		composite_7.setLayoutData(gd_composite_7);
-		GridLayout gl_composite_7 = new GridLayout(7, false);
-		gl_composite_7.marginTop = 15;
-		gl_composite_7.marginLeft = 45;
-		composite_7.setLayout(gl_composite_7);
-		composite_7.setBackgroundImage(resourceManager.createImage(smallbox));
+		Composite composite_9 = new Composite(composite_2, SWT.NONE);
+		composite_9.setLayout(null);
+		GridData gd_composite_9 = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_composite_9.minimumWidth = 900;
+		gd_composite_9.widthHint = 900;
+		composite_9.setLayoutData(gd_composite_9);
 		
-		Composite composite_16 = new Composite(composite_7, SWT.NONE);
-		GridData gd_composite_16 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_16.widthHint = 80;
-		composite_16.setLayoutData(gd_composite_16);
-		composite_16.setLayout(new GridLayout(1, false));
-		composite_16.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblTagIcon = new Label(composite_16, SWT.NONE);
-		GridData gd_lblTagIcon = new GridData(SWT.CENTER, SWT.FILL, false, false, 1, 1);
-		gd_lblTagIcon.heightHint = 45;
-		gd_lblTagIcon.widthHint = 50;
-		lblTagIcon.setLayoutData(gd_lblTagIcon);
-		lblTagIcon.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblTagIcon.setBackgroundImage(resourceManager.createImage(icon_sensor));
-		
-		Label lblNewLabel_13 = new Label(composite_16, SWT.NONE);
-		lblNewLabel_13.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_13.setAlignment(SWT.CENTER);
-		lblNewLabel_13.setText("Tag");
-		lblNewLabel_13.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label label2 = new Label(composite_7, SWT.SEPARATOR | SWT.VERTICAL);
-		label2.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Composite composite_17 = new Composite(composite_7, SWT.NONE);
-		GridData gd_composite_17 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_17.widthHint = 80;
-		composite_17.setLayoutData(gd_composite_17);
-		composite_17.setBounds(0, 0, 64, 64);
-		composite_17.setLayout(new GridLayout(1, false));
-		composite_17.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		lblTagActive = new Label(composite_17, SWT.NONE);
-		lblTagActive.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
-		lblTagActive.setAlignment(SWT.CENTER);
-		lblTagActive.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblTagActive.setBounds(0, 0, 100, 103);
-		lblTagActive.setText(" 8");
-		lblTagActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_11 = new Label(composite_17, SWT.NONE);
-		lblNewLabel_11.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_11.setAlignment(SWT.CENTER);
-		lblNewLabel_11.setBounds(0, 0, 56, 15);
-		lblNewLabel_11.setText("Active");
-		lblNewLabel_11.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label label_11 = new Label(composite_7, SWT.SEPARATOR | SWT.VERTICAL);
-		label_11.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Composite composite_18 = new Composite(composite_7, SWT.NONE);
-		GridData gd_composite_18 = new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 1);
-		gd_composite_18.widthHint = 80;
-		composite_18.setLayoutData(gd_composite_18);
-		composite_18.setBounds(0, 0, 64, 64);
-		composite_18.setLayout(new GridLayout(1, false));
-		composite_18.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		lblTagInactive = new Label(composite_18, SWT.NONE);
-		lblTagInactive.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
-		lblTagInactive.setAlignment(SWT.CENTER);
-		lblTagInactive.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblTagInactive.setBounds(0, 0, 100, 103);
-		lblTagInactive.setText(" 8");
-		lblTagInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_14 = new Label(composite_18, SWT.NONE);
-		lblNewLabel_14.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_14.setAlignment(SWT.CENTER);
-		lblNewLabel_14.setBounds(0, 0, 56, 15);
-		lblNewLabel_14.setText("Inactive");
-		lblNewLabel_14.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label label_22 = new Label(composite_7, SWT.SEPARATOR | SWT.VERTICAL);
-		label_22.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Composite composite_19 = new Composite(composite_7, SWT.NONE);
-		GridData gd_composite_19 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite_19.widthHint = 80;
-		composite_19.setLayoutData(gd_composite_19);
-		composite_19.setBounds(0, 0, 64, 64);
-		composite_19.setLayout(new GridLayout(1, false));
-		composite_19.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-
-		lblTagLow = new Label(composite_19, SWT.NONE);
-		lblTagLow.setFont(new Font(null, "¸¼Àº °íµñ", 34, SWT.NORMAL));
-		lblTagLow.setAlignment(SWT.CENTER);
-		lblTagLow.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblTagLow.setBounds(0, 0, 100, 103);
-		lblTagLow.setText(" 8");
-		lblTagLow.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Label lblNewLabel_16 = new Label(composite_19, SWT.NONE);
-		lblNewLabel_16.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_16.setAlignment(SWT.CENTER);
-		lblNewLabel_16.setBounds(0, 0, 56, 15);
-		lblNewLabel_16.setText("Low");
-		lblNewLabel_16.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		new Label(composite_6, SWT.NONE);
-		new Label(composite_6, SWT.NONE);
-		new Label(composite_6, SWT.NONE);
-		new Label(composite_6, SWT.NONE);
-		new Label(composite_6, SWT.NONE);
-		new Label(composite_6, SWT.NONE);
-		new Label(composite_6, SWT.NONE);
-
-		
-		Composite composite_8 = new Composite(composite_2, SWT.NONE);
-		composite_8.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1));
-		composite_8.setLayout(new GridLayout(4, false));
-		
-		Composite composite_13 = new Composite(composite_8, SWT.NONE);
-		composite_13.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1));
-		composite_13.setLayout(new GridLayout(1, false));
-
-		Label lblNewLabel_22 = new Label(composite_13, SWT.NONE);
-		GridData lblNewLabel_32 = new GridData(SWT.CENTER, SWT.FILL, false, true, 1, 1);
-		lblNewLabel_32.heightHint = 146;
-		lblNewLabel_32.widthHint = 128;
-		lblNewLabel_22.setLayoutData(lblNewLabel_32);
-		lblNewLabel_22.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_22.setBackgroundImage(resourceManager.createImage(icon_active));
-		
-		Label lblNewLabel_23 = new Label(composite_13, SWT.NONE);
-		lblNewLabel_23.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_23.setAlignment(SWT.CENTER);
-		lblNewLabel_23.setText("Active");
-		lblNewLabel_23.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-
-		Composite composite_14 = new Composite(composite_8, SWT.NONE);
-		composite_14.setLayout(new GridLayout(1, false));
-
-		Label lblNewLabel_33 = new Label(composite_14, SWT.NONE);
-		GridData gd_lblNewLabel_33 = new GridData(SWT.CENTER, SWT.FILL, false, false, 1, 1);
-		gd_lblNewLabel_33.heightHint = 146;
-		gd_lblNewLabel_33.widthHint = 128;
-		lblNewLabel_33.setLayoutData(gd_lblNewLabel_33);
-		lblNewLabel_33.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_33.setBackgroundImage(resourceManager.createImage(icon_inactive));
-		
-		Label lblNewLabel_34 = new Label(composite_14, SWT.NONE);
-		lblNewLabel_34.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_34.setAlignment(SWT.CENTER);
-		lblNewLabel_34.setText("Inactive");
-		lblNewLabel_34.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		
-		Composite composite_15 = new Composite(composite_8, SWT.NONE);
-		composite_15.setLayout(new GridLayout(1, false));
-
-		Label lblNewLabel_35 = new Label(composite_15, SWT.NONE);
-		GridData gd_lblNewLabel_35 = new GridData(SWT.CENTER, SWT.FILL, false, false, 1, 1);
-		gd_lblNewLabel_35.heightHint = 146;
-		gd_lblNewLabel_35.widthHint = 128;
-		lblNewLabel_35.setLayoutData(gd_lblNewLabel_35);
-		lblNewLabel_35.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_35.setBackgroundImage(resourceManager.createImage(icon_lowbattery));
-		
-		Label lblNewLabel_36 = new Label(composite_15, SWT.NONE);
-		lblNewLabel_36.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_36.setAlignment(SWT.CENTER);
-		lblNewLabel_36.setText("Low Battery");
-		lblNewLabel_36.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-
-		
-		Composite composite_20 = new Composite(composite_8, SWT.NONE);
-		composite_20.setLayout(new GridLayout(1, false));
-
-		Label lblNewLabel_37 = new Label(composite_20, SWT.NONE);
-		GridData gd_lblNewLabel_37 = new GridData(SWT.CENTER, SWT.FILL, false, false, 1, 1);
-		gd_lblNewLabel_37.heightHint = 146;
-		gd_lblNewLabel_37.widthHint = 128;
-		lblNewLabel_37.setLayoutData(gd_lblNewLabel_37);
-		lblNewLabel_37.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-		lblNewLabel_37.setBackgroundImage(resourceManager.createImage(icon_sos));
-		
-		Label lblNewLabel_38 = new Label(composite_20, SWT.NONE);
-		lblNewLabel_38.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_38.setAlignment(SWT.CENTER);
-		lblNewLabel_38.setText("SOS");
-		lblNewLabel_38.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		Composite composite_8 = new Composite(composite_9, SWT.NONE);
+		composite_8.setBounds(100, 5, 311, 101);
+		composite_8.setLayout(new GridLayout(1, false));
+		composite_8.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		composite_8.setBackgroundImage(resourceManager.createImage(category_mote));
 		//canvas.setBackgroundImage(image);
 
 //		ServerPushSession pushSession = new ServerPushSession();
@@ -786,6 +511,13 @@ public class SensorDashboardPart {
 	int activeTagCnt = 0;
 	int sosTagCnt = 0;
 
+	int beforeTagCnt = 0;
+	int beforeSosTagCnt = 0;
+	Label lblNewLabel;
+	Label lblNewLabel_1;
+	Label lblNewLabel_2;
+	Label lblNewLabel_3;
+
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
@@ -793,23 +525,31 @@ public class SensorDashboardPart {
         qMaxTime.setMaxResults(1);
         Tags tag = (Tags) qMaxTime.getSingleResult();
 
-        Query q = em.createQuery("select t.apid as apid, count(t.apid) As cnt from Tags t where t.time = :time group by t.apid");
-        q.setParameter("time", tag.getTime());
-        
-        List<Object[]>results = q.getResultList();
-        
-        tagCount.clear();
-        for (Object[] result : results) {
-        	//String name = (String) result[0];
-        	int apid = ((Number) result[0]).intValue();
-        	int count = ((Number) result[1]).intValue();
-        	
-        	tagCount.put(apid, count);
-        }
-
+        // ÅÂ±× ¸®½ºÆ® Áß Áßº¹ Á¦°Å 
         Query qTags = em.createQuery("select t from Tags t where t.time = :time");
         qTags.setParameter("time", tag.getTime());
-        tagList = qTags.getResultList();
+        List<Tags> tagListTemp = qTags.getResultList();
+        tagList.clear();
+		for (Tags tag1 : tagListTemp) {
+			int cnt = 0;
+			for (Tags tag2 : tagList) {
+				if(tag2.getTagid() == tag1.getTagid()) {
+					if(tag1.getRssi() < tag2.getRssi()) { // tag1ÀÇ ½ÅÈ£°¡ ´õ ¼¼¸é
+						tagList.remove(tag2);
+						tagList.add(tag1);
+					}
+					cnt++;
+					break;
+				}
+			}
+			if(cnt == 0) {
+				tagList.add(tag1);
+			}
+		}
+       
+		beforeTagCnt = activeTagCnt;
+		beforeSosTagCnt = sosTagCnt;
+		
         activeTagCnt = 0;
         sosTagCnt = 0;
 		for (Tags tag1 : tagList) {
@@ -819,7 +559,6 @@ public class SensorDashboardPart {
 			}
 		}
         
-		
         Query q2 = em.createQuery("select t from Ap t order by t.apid");
 		apList = q2.getResultList();
 		
@@ -833,6 +572,34 @@ public class SensorDashboardPart {
 			}
 		}
 
+		
+//        Query q = em.createQuery("select t.apid as apid, count(t.apid) As cnt from Tags t where t.time = :time group by t.apid");
+//        q.setParameter("time", tag.getTime());
+//        
+//        List<Object[]>results = q.getResultList();
+        
+        tagCount.clear();
+//        for (Object[] result : results) {
+//        	//String name = (String) result[0];
+//        	int apid = ((Number) result[0]).intValue();
+//        	int count = ((Number) result[1]).intValue();
+//        	
+//        	tagCount.put(apid, count);
+//        }
+		for (Ap ap : apList) {
+			int count = 0;
+			for (Tags tag1 : tagList) {
+				if(ap.getApid() == tag1.getApid()) {
+					count++;
+				}
+			}
+			if(count > 0) {
+				tagCount.put(ap.getApid(), count);
+			}
+		}
+
+		
+
 		// È­¸é ¾÷µ¥ÀÌÆ®
 
 		if(!canvas.isDisposed()) {
@@ -844,6 +611,7 @@ public class SensorDashboardPart {
 				lblNewLabel_8.setText(dateFormat.format(new Date( tag.getTime().getTime() ) ));
 				
 				lblNewLabel_19.setText(activeTagCnt+"");
+				lblNewLabel_24.setText(sosTagCnt+"");
 				
 				lblApActive.setText(activeCnt+"");
 				lblApInactive.setText(inactiveCnt+"");
@@ -853,6 +621,34 @@ public class SensorDashboardPart {
 				lblTagInactive.setText(0+"");
 				lblTagLow.setText(0+"");
 				
+				if(activeTagCnt == beforeTagCnt) {
+					lblNewLabel.setText("-");
+					lblNewLabel.setBackgroundImage(null);
+				}else if(activeTagCnt > beforeTagCnt) {
+					lblNewLabel.setText("");
+					lblNewLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+					lblNewLabel.setBackgroundImage(resourceManager.createImage(Triangle));
+				}else {
+					lblNewLabel.setText("");
+					lblNewLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+					lblNewLabel.setBackgroundImage(resourceManager.createImage(Triangle2));
+				}
+				lblNewLabel_1.setText( "" + Math.abs(activeTagCnt - beforeTagCnt) );
+
+				if(sosTagCnt == beforeSosTagCnt) {
+					lblNewLabel_2.setText("-");
+					lblNewLabel_2.setBackgroundImage(null);
+				}else if(sosTagCnt > beforeSosTagCnt) {
+					lblNewLabel_2.setText("");
+					lblNewLabel_2.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+					lblNewLabel_2.setBackgroundImage(resourceManager.createImage(Triangle));
+				}else {
+					lblNewLabel_2.setText("");
+					lblNewLabel_2.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+					lblNewLabel_2.setBackgroundImage(resourceManager.createImage(Triangle2));
+				}
+				lblNewLabel_3.setText( "" + Math.abs(sosTagCnt - beforeSosTagCnt) );
+
 			});
 			sync.syncExec(()->{
 				canvas.redraw();

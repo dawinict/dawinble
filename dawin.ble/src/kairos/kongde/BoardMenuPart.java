@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.advanced.MArea;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
@@ -69,8 +70,10 @@ public class BoardMenuPart {
 		gl_parent.marginTop = 10;
 		gl_parent.marginHeight = 0;
 		parent.setLayout(gl_parent);
+		parent.setBackground(new Color (Display.getCurrent(), 226, 228, 235));
+		new Label(parent, SWT.NONE);
 		
-		Composite composite = new Composite(parent, SWT.NONE);
+		Composite composite = new Composite(parent, SWT.BORDER);
 		RowLayout rl_composite = new RowLayout(SWT.HORIZONTAL);
 		rl_composite.spacing = 0;
 		rl_composite.marginBottom = 0;
@@ -89,6 +92,7 @@ public class BoardMenuPart {
 		lblNewLabel.setLayoutData(new RowData(47, 33));
 		lblNewLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblNewLabel.setBackgroundImage(resourceManager.createImage(categoryicon_1));
+		new Label(parent, SWT.NONE);
 
 		
 		Button btnNewButton = new Button(parent, SWT.NONE);
@@ -99,6 +103,9 @@ public class BoardMenuPart {
 			public void mouseUp(MouseEvent e) {
 		    	//List<MPart> parts = service.findElements(application, "dawin.ble.part.1",MPart.class, null);
 				MPartSashContainer sashContainer = (MPartSashContainer) service.find("dawin.ble.partsashcontainer.0", application);
+//				MArea area = (MArea) service.find("dawin.ble.area.0", application);
+//				area.getChildren().get(0).setContainerData("300");
+//				area.getChildren().get(0).setContainerData("1600");
 //		    	sashContainer.getChildren().remove(1);
 //		    	sashContainer.getChildren().add(1,part0);
 				
@@ -119,6 +126,7 @@ public class BoardMenuPart {
 		gd_btnNewButton.heightHint = 38;
 		btnNewButton.setLayoutData(gd_btnNewButton);
 		btnNewButton.setText(" Dashboard");
+		new Label(parent, SWT.NONE);
 		
 		Button btnDashboard2 = new Button(parent, SWT.NONE);
 		btnDashboard2.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
@@ -140,6 +148,7 @@ public class BoardMenuPart {
 		gd_btnDashboard2.widthHint = 300;
 		btnDashboard2.setLayoutData(gd_btnDashboard2);
 		btnDashboard2.setText(" Real Time Sensor");
+		new Label(parent, SWT.NONE);
 
 
 		Composite composite2 = new Composite(parent, SWT.NONE);
@@ -203,5 +212,10 @@ public class BoardMenuPart {
     	partService.hidePart(part1);
     	MPart part0 = partService.findPart("dawin.ble.part.0");
     	partService.showPart(part0, PartState.ACTIVATE);
+    	
+		MArea area = (MArea) service.find("dawin.ble.area.0", application);
+		area.getChildren().get(0).setContainerData("300");
+		area.getChildren().get(0).setContainerData("1600");
+
 	}
 }

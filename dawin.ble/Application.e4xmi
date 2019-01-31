@@ -26,18 +26,7 @@
         <children xsi:type="basic:Part" xmi:id="_LOiGAEFSEei_WbcqJTWTIw" elementId="kairos.kongde.part.sensordashboard" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorDashboardPart" label="Sensor Dashboard" iconURI="platform:/plugin/kairos.kongde/icons/beacon16.png" tooltip="Sensor Dashboard"/>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_6Al0MBmmEemiZ7bbTGwSgg" elementId="dawin.ble.perspective.dashboard" label="DashBoard">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_GOhJoBmnEemiZ7bbTGwSgg" elementId="dawin.ble.partsashcontainer.0" containerData="" selectedElement="_KyV6IBmnEemiZ7bbTGwSgg" horizontal="true">
-          <children xsi:type="basic:Part" xmi:id="_KyV6IBmnEemiZ7bbTGwSgg" elementId="dawin.ble.part.boardmenu" containerData="300" contributionURI="bundleclass://kairos.kongde/kairos.kongde.BoardMenuPart" label="BoardMenu"/>
-          <children xsi:type="basic:Part" xmi:id="_UUEHABmyEemiZ7bbTGwSgg" elementId="dawin.ble.part.0" containerData="1620" contributionURI="bundleclass://kairos.kongde/kairos.kongde.DashboardPart"/>
-          <children xsi:type="basic:Part" xmi:id="_jycR0Bm4EemiZ7bbTGwSgg" elementId="dawin.ble.part.1" containerData="1620" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPart">
-            <handlers xmi:id="_PyGCEDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.handler.9" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigAddHandler" command="_aySZEDCOEeiKOIqdSCXBWw"/>
-            <handlers xmi:id="_tjdZEDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.handler.10" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigDeleteHandler" command="_rPMQYDCOEeiKOIqdSCXBWw"/>
-            <menus xsi:type="menu:PopupMenu" xmi:id="_y4Cl0DBGEeiW-_WQruXfgw" elementId="kairos.kongde.popupmenu.config" label="config" iconURI="platform:/plugin/kairos.kongde/icons/page_white_text.png">
-              <children xsi:type="menu:HandledMenuItem" xmi:id="_OgujoDBIEeiW-_WQruXfgw" elementId="kairos.kongde.handledmenuitem.add" label="Add" iconURI="platform:/plugin/kairos.kongde/icons/plus16.png" command="_aySZEDCOEeiKOIqdSCXBWw"/>
-              <children xsi:type="menu:HandledMenuItem" xmi:id="_osj7kDCOEeiKOIqdSCXBWw" elementId="kairos.kongde.handledmenuitem.delete" label="Delete" iconURI="platform:/plugin/kairos.kongde/icons/minus16.png" command="_rPMQYDCOEeiKOIqdSCXBWw"/>
-            </menus>
-          </children>
-        </children>
+        <children xsi:type="basic:Part" xmi:id="_oBcqkCTJEemdaL1joykn8A" elementId="dawin.ble.part.2" contributionURI="bundleclass://kairos.kongde/kairos.kongde.DashboardPart"/>
       </children>
     </children>
     <handlers xmi:id="_DKc3cCswEei4GNg1egFDaA" elementId="kairos.kongde.handler.topichandler" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TopicHandler" command="_WwQ14CsvEei4GNg1egFDaA"/>
