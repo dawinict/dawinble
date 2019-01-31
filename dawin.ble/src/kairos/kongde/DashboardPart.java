@@ -200,14 +200,14 @@ public class DashboardPart {
 		composite_4.setBackground(new Color (Display.getCurrent(), 159, 170, 222));
 		
 		Label lblNewLabel = new Label(composite_4, SWT.NONE);
-		lblNewLabel.setLocation(10, 3);
+		lblNewLabel.setLocation(40, 3);
 		lblNewLabel.setSize(47, 33);
 		lblNewLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblNewLabel.setBackgroundImage(resourceManager.createImage(categoryicon_1));
 
 		Composite composite_6 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_6 = new GridLayout(1, false);
-		gl_composite_6.marginLeft = 10;
+		gl_composite_6.marginLeft = 40;
 		composite_6.setLayout(gl_composite_6);
 		GridData gd_composite_6 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_6.heightHint = 45;
@@ -222,7 +222,7 @@ public class DashboardPart {
 		
 		Composite composite_7 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_7 = new GridLayout(1, false);
-		gl_composite_7.marginLeft = 10;
+		gl_composite_7.marginLeft = 40;
 		composite_7.setLayout(gl_composite_7);
 		GridData gd_composite_7 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_7.heightHint = 45;
@@ -242,14 +242,14 @@ public class DashboardPart {
 		//composite_8.setBackground(new Color (Display.getCurrent(), 159, 170, 222));
 		
 		Label lblNewLabel4 = new Label(composite_8, SWT.NONE);
-		lblNewLabel4.setLocation(10, 7);
+		lblNewLabel4.setLocation(40, 7);
 		lblNewLabel4.setSize(50, 30);
 		lblNewLabel4.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblNewLabel4.setBackgroundImage(resourceManager.createImage(categoryicon_2));
 
 		Composite composite_9 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_9 = new GridLayout(1, false);
-		gl_composite_9.marginLeft = 10;
+		gl_composite_9.marginLeft = 40;
 		composite_9.setLayout(gl_composite_9);
 		GridData gd_composite_9 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_9.heightHint = 45;
@@ -261,7 +261,7 @@ public class DashboardPart {
 		
 		Composite composite_10 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_10 = new GridLayout(1, false);
-		gl_composite_10.marginLeft = 10;
+		gl_composite_10.marginLeft = 40;
 		composite_10.setLayout(gl_composite_10);
 		GridData gd_composite_10 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_10.heightHint = 45;
@@ -273,7 +273,7 @@ public class DashboardPart {
 		
 		Composite composite_11 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_11 = new GridLayout(1, false);
-		gl_composite_11.marginLeft = 10;
+		gl_composite_11.marginLeft = 40;
 		composite_11.setLayout(gl_composite_11);
 		GridData gd_composite_11 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_11.heightHint = 45;
@@ -299,14 +299,14 @@ public class DashboardPart {
 		//composite_8.setBackground(new Color (Display.getCurrent(), 159, 170, 222));
 		
 		Label lblNewLabel8 = new Label(composite_13, SWT.NONE);
-		lblNewLabel8.setLocation(10, 2);
+		lblNewLabel8.setLocation(40, 2);
 		lblNewLabel8.setSize(42, 42);
 		lblNewLabel8.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblNewLabel8.setBackgroundImage(resourceManager.createImage(categoryicon_3));
 
 		Composite composite_14 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_14 = new GridLayout(1, false);
-		gl_composite_14.marginLeft = 10;
+		gl_composite_14.marginLeft = 40;
 		composite_14.setLayout(gl_composite_14);
 		GridData gd_composite_14 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_14.heightHint = 45;
@@ -318,7 +318,7 @@ public class DashboardPart {
 		
 		Composite composite_17 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_17 = new GridLayout(1, false);
-		gl_composite_17.marginLeft = 10;
+		gl_composite_17.marginLeft = 40;
 		composite_17.setLayout(gl_composite_17);
 		GridData gd_composite_17 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_17.heightHint = 45;
@@ -330,7 +330,7 @@ public class DashboardPart {
 		
 		Composite composite_16 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_16 = new GridLayout(1, false);
-		gl_composite_16.marginLeft = 10;
+		gl_composite_16.marginLeft = 40;
 		composite_16.setLayout(gl_composite_16);
 		GridData gd_composite_16 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_16.heightHint = 45;
@@ -351,7 +351,7 @@ public class DashboardPart {
 		
 		Composite composite_18 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_18 = new GridLayout(1, false);
-		gl_composite_18.marginLeft = 10;
+		gl_composite_18.marginLeft = 40;
 		composite_18.setLayout(gl_composite_18);
 		GridData gd_composite_18 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_18.heightHint = 45;
@@ -375,7 +375,7 @@ public class DashboardPart {
 			}
 		});
 		GridLayout gl_composite_19 = new GridLayout(1, false);
-		gl_composite_19.marginLeft = 10;
+		gl_composite_19.marginLeft = 40;
 		composite_19.setLayout(gl_composite_19);
 		GridData gd_composite_19 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_19.heightHint = 45;
@@ -410,7 +410,7 @@ public class DashboardPart {
 		});
 
 		GridLayout gl_composite_20 = new GridLayout(1, false);
-		gl_composite_20.marginLeft = 10;
+		gl_composite_20.marginLeft = 40;
 		composite_20.setLayout(gl_composite_20);
 		GridData gd_composite_20 = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_composite_20.heightHint = 45;
