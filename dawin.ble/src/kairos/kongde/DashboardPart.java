@@ -478,7 +478,7 @@ public class DashboardPart {
 		lblAlertActive.setAlignment(SWT.RIGHT);
 		lblAlertActive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
 		lblAlertActive.setBounds(1300, 200, 41, 61);
-		lblAlertActive.setText(" 2");
+		lblAlertActive.setText(" 0");
 		lblAlertActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblAlertInactive = new Label(composite_15, SWT.NONE);
