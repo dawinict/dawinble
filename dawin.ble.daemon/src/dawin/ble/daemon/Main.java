@@ -1,6 +1,12 @@
 package dawin.ble.daemon;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +15,8 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +35,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Main {
-
+	public static Properties properties = new Properties();
+	
+	private static String dbConnect = "jdbc:mariadb://localhost:3306/dawinble";
+	private static String dbUser = "root";
+	private static String dbPassword = "root";
+	private static String restConnect = "http://59.6.192.225:9988/";
+	
 	public static void main(String[] args) {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -37,6 +51,47 @@ public class Main {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		DateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
 		
+        String configFile = "config.xml";
+        File file = new File(configFile);
+       
+        if(file.exists()){
+
+            InputStream inputStream;
+			try {
+				inputStream = new FileInputStream(configFile);
+	            properties.loadFromXML(inputStream);
+	            inputStream.close();
+	            dbConnect = properties.getProperty("dbConnect");
+	            dbUser = properties.getProperty("dbUser");
+	            dbPassword = properties.getProperty("dbPassword");
+	            restConnect = properties.getProperty("restConnect");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				System.out.println(" Config Parsing Error");
+				System.exit(1);
+			} catch (InvalidPropertiesFormatException e) {
+				e.printStackTrace();
+				System.out.println(" Config Parsing Error");
+				System.exit(1);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println(" Config Parsing Error");
+				System.exit(1);
+			} finally {
+			}
+            
+        }else{
+//            properties.setProperty("relayCenterID","000");
+//            properties.setProperty("aliveSecond","3");
+//            properties.setProperty("ackMilliSecond","1500");
+//            
+//            OutputStream outputStream = new FileOutputStream(file);
+//            properties.storeToXML(outputStream, "VHF-DSC 제어기 설정 파일");
+//            outputStream.close();
+        	System.out.println(" No Config File");
+			System.exit(1);
+        }
+
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 		
 		Runnable runnableTags = new Runnable() {
@@ -48,9 +103,9 @@ public class Main {
 		        CloseableHttpClient httpclient = HttpClients.createDefault();
 		        Connection connection = null ;
 		        try {
-					connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/dawinble?user=root&password=root");
+					connection = DriverManager.getConnection(dbConnect,dbUser,dbPassword);
 
-		            HttpGet httpGet = new HttpGet("http://59.6.192.225:9988/tags");
+		            HttpGet httpGet = new HttpGet(restConnect +"tags");
 		            //HttpGet httpGet = new HttpGet("http://59.6.192.225:9988/apdevs");
 		            
 		            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -174,8 +229,8 @@ public class Main {
 		        CloseableHttpClient httpclient = HttpClients.createDefault();
 		        Connection connection = null ;
 		        try {
-					connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/dawinble?user=root&password=root");
-		            HttpGet httpGet = new HttpGet("http://59.6.192.225:9988/apdevs");
+					connection = DriverManager.getConnection(dbConnect,dbUser,dbPassword);
+		            HttpGet httpGet = new HttpGet(restConnect+"apdevs");
 		            
 		            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 
