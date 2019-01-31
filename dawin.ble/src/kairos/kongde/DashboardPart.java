@@ -495,8 +495,8 @@ public class DashboardPart {
 		
 		Composite composite_3 = new Composite(composite, SWT.NONE);
 		GridLayout gl_composite_3 = new GridLayout(2, true);
-		gl_composite_3.marginRight = 80;
-		gl_composite_3.marginLeft = 80;
+		gl_composite_3.marginRight = 50;
+		gl_composite_3.marginLeft = 65;
 		composite_3.setLayout(gl_composite_3);
 		composite_3.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		composite_3.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
