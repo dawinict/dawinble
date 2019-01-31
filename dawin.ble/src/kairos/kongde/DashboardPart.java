@@ -77,6 +77,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.widgets.Button;
 
 public class DashboardPart {
 	private static class ContentProvider_1 implements IStructuredContentProvider {
@@ -109,7 +110,7 @@ public class DashboardPart {
 	static List<Tags> tagList = new ArrayList<Tags>();
 	List<Tags> selectedTagList = new ArrayList<Tags>();
 	Point selectedPoint = new Point(0, 0);
-	static List<Ap> apList;
+	static List<Ap> apList = new ArrayList<Ap>();
 	
 	
 	HashMap<Integer, Integer> tagCount = new HashMap();
@@ -324,7 +325,7 @@ public class DashboardPart {
 		gd_composite_17.heightHint = 45;
 		composite_17.setLayoutData(gd_composite_17);
 		
-		Label lblNewLabel10 = new Label(composite_17, SWT.NONE);
+		Button lblNewLabel10 = new Button(composite_17, SWT.NONE);
 		lblNewLabel10.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
 		lblNewLabel10.setText("Setup Gateway");
 		
@@ -537,7 +538,7 @@ public class DashboardPart {
 		TableColumn tblclmnNewColumn_6 = tableViewerColumn_7.getColumn();
 		tblclmnNewColumn_6.setAlignment(SWT.CENTER);
 		tblclmnNewColumn_6.setWidth(300);
-		tblclmnNewColumn_6.setText("Remark");
+		tblclmnNewColumn_6.setText("Description");
 		
 		TableViewerColumn tableViewerColumn_8 = new TableViewerColumn(tableViewer_1, SWT.NONE);
 		tableViewerColumn_8.setLabelProvider(new ColumnLabelProvider() {
@@ -704,7 +705,7 @@ public class DashboardPart {
 			@Override
 			public void run() {
 				while(true){
-					em.clear();
+					//em.clear();
 					refreshSensorList();
 					//System.out.println("ZZZZ");
 					try {
@@ -755,6 +756,7 @@ public class DashboardPart {
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
 		em.clear();
+		em.getEntityManagerFactory().getCache().evictAll();
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
         qMaxTime.setFirstResult(0);
         qMaxTime.setMaxResults(1);
@@ -793,8 +795,8 @@ public class DashboardPart {
 		}
         
         Query q2 = em.createQuery("select t from Ap t order by t.apid");
-		apList = q2.getResultList();
-		
+        apList = q2.getResultList();
+
 		activeCnt = 0;
 		inactiveCnt = 0;
 		for (Ap ap : apList) {
@@ -844,9 +846,10 @@ public class DashboardPart {
 
 				lblTagActive.setText(activeTagCnt+"");
 				
-				tableViewer.setInput(tagList);
-				//tableViewer.refresh();
 				tableViewer_1.setInput(apList);
+				tableViewer_1.refresh();
+				tableViewer.setInput(tagList);
+				tableViewer.refresh();
 			});
 //			sync.syncExec(()->{
 //				canvas.redraw();

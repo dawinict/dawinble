@@ -89,6 +89,7 @@ public class SensorDashboardPart {
 	
 	
 	HashMap<Integer, Integer> tagCount = new HashMap();
+	HashMap<Integer, Integer> sosCount = new HashMap();
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("kairos.kongde");
     EntityManager em = emf.createEntityManager();
@@ -120,8 +121,8 @@ public class SensorDashboardPart {
     URL url9 = FileLocator.find(bundle, new Path("icons/moteicon_lowbattery.png"), null);
     ImageDescriptor icon_lowbattery = ImageDescriptor.createFromURL(url9);
 
-    URL url10 = FileLocator.find(bundle, new Path("icons/icon_sos.png"), null);
-    ImageDescriptor icon_sos = ImageDescriptor.createFromURL(url10);
+    URL url10 = FileLocator.find(bundle, new Path("icons/moteicon_sos.png"), null);
+    ImageDescriptor moteicon_sos = ImageDescriptor.createFromURL(url10);
 
     URL url11 = FileLocator.find(bundle, new Path("icons/icon_total.png"), null);
     ImageDescriptor icon_total = ImageDescriptor.createFromURL(url11);
@@ -180,7 +181,7 @@ public class SensorDashboardPart {
 		image_active = resourceManager.createImage(icon_active);
 		image_inactive = resourceManager.createImage(icon_inactive);
 		image_lowbattery = resourceManager.createImage(icon_lowbattery);
-		image_sos = resourceManager.createImage(icon_sos);
+		image_sos = resourceManager.createImage(moteicon_sos);
 		image_popup_inactive_1 = resourceManager.createImage(popup_inactive_1);
 		
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -301,7 +302,10 @@ public class SensorDashboardPart {
 								
 								if(apList != null) {
 									for(Ap ap : apList) {
-										if(ap.getBatt() < 0.3 && ap.getAct() == 2) {	// Low Battery
+										if(sosCount.get(ap.getApid()) > 0) {	// SOS
+											event.gc.drawImage(image_sos, ap.getX(), ap.getY());
+											event.gc.setBackground(new Color(event.display, new RGB(242, 165, 0)));
+										}else if(ap.getBatt() < 0.3 && ap.getAct() == 2) {	// Low Battery
 											event.gc.drawImage(image_lowbattery, ap.getX(), ap.getY());
 											event.gc.setBackground(new Color(event.display, new RGB(242, 165, 0)));
 										}else if(ap.getAct() == 2) {	// Active
@@ -318,10 +322,12 @@ public class SensorDashboardPart {
 										// AP ID ±×¸®±â
 										//event.gc.setBackground(event.display.getSystemColor(SWT.COLOR_TRANSPARENT));
 										event.gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-										event.gc.drawText("#"+ap.getApid(), ap.getX()+70, ap.getY()+70);
+										event.gc.setFont(new Font(null, "¸¼Àº °íµñ", 16, SWT.NORMAL));
+										event.gc.drawText("#"+ap.getApid(), ap.getX()+70, ap.getY()+110);
 										// APÀÇ Tag °¹¼ö ±×¸®±â
 										if(tagCount.get(ap.getApid()) != null) {
-											event.gc.drawText(""+tagCount.get(ap.getApid()), ap.getX()+70, ap.getY()+110);
+											event.gc.setFont(new Font(null, "¸¼Àº °íµñ", 32, SWT.NORMAL));
+											event.gc.drawText(""+tagCount.get(ap.getApid()), ap.getX()+70, ap.getY()+60);
 										}
 									}
 									
@@ -521,6 +527,7 @@ public class SensorDashboardPart {
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
 		em.clear();
+		em.getEntityManagerFactory().getCache().evictAll();
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
         qMaxTime.setFirstResult(0);
         qMaxTime.setMaxResults(1);
@@ -562,6 +569,9 @@ public class SensorDashboardPart {
         
         Query q2 = em.createQuery("select t from Ap t order by t.apid");
 		apList = q2.getResultList();
+//		for (Ap ap : apList) {
+//			System.out.println(ap.getApid() +":" +ap.getAct());
+//		}
 		
 		activeCnt = 0;
 		inactiveCnt = 0;
@@ -599,6 +609,18 @@ public class SensorDashboardPart {
 			}
 		}
 
+        sosCount.clear();
+		for (Ap ap : apList) {
+			int count = 0;
+			for (Tags tag1 : tagList) {
+				if(ap.getApid() == tag1.getApid() && tag1.getSos() != 0) {
+					count++;
+				}
+			}
+			//if(count > 0) {
+			sosCount.put(ap.getApid(), count);
+			//}
+		}
 		
 
 		// È­¸é ¾÷µ¥ÀÌÆ®
