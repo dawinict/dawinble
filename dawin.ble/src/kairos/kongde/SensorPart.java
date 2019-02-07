@@ -106,6 +106,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class SensorPart {
 	private Ap ap;
@@ -494,6 +495,7 @@ public class SensorPart {
 			}
 		});
 		Tree tree = treeViewer.getTree();
+		tree.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		tree.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, true, 1, 1));
 		tree.setSize(164, 288);
 		

@@ -2,6 +2,7 @@
 package kairos.kongde;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -268,12 +269,14 @@ public class SensorDashboardPart {
 				gd_composite_22.widthHint = 200;
 				composite_22.setLayoutData(gd_composite_22);
 				composite_22.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
-				
+
 				canvas = new Canvas(composite_21, SWT.NONE);
 				canvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+				
 				canvas.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseDown(MouseEvent e) {
+						
 						selectedTagList.clear();
 						for (Ap ap : apList) {
 							if(ap.getX()  < e.x && e.x < ap.getX() + 100 && ap.getY()  < e.y && e.y < ap.getY() + 100) {
@@ -285,6 +288,7 @@ public class SensorDashboardPart {
 										selectedTagList.add(tag1);
 									}
 								}
+								
 								break;
 							}
 						}
@@ -323,11 +327,11 @@ public class SensorDashboardPart {
 										//event.gc.setBackground(event.display.getSystemColor(SWT.COLOR_TRANSPARENT));
 										event.gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 										event.gc.setFont(new Font(null, "맑은 고딕", 16, SWT.NORMAL));
-										event.gc.drawText("#"+ap.getApid(), ap.getX()+70, ap.getY()+110);
+										event.gc.drawText("#"+ap.getApid(), ap.getX()+70, ap.getY()+ 35);
 										// AP의 Tag 갯수 그리기
 										if(tagCount.get(ap.getApid()) != null) {
-											event.gc.setFont(new Font(null, "맑은 고딕", 32, SWT.NORMAL));
-											event.gc.drawText(""+tagCount.get(ap.getApid()), ap.getX()+70, ap.getY()+60);
+											event.gc.setFont(new Font(null, "맑은 고딕", 20, SWT.NORMAL));
+											event.gc.drawText(""+tagCount.get(ap.getApid()), ap.getX()+70, ap.getY()+70);
 										}
 									}
 									
@@ -348,9 +352,10 @@ public class SensorDashboardPart {
 										
 										event.gc.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 										event.gc.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+										event.gc.setFont(new Font(null, "맑은 고딕", 16, SWT.NORMAL));
 										
-										int fontHeight = 14;
-										int pointX = 130;
+										int fontHeight = 20;
+										int pointX = 135;
 										int pointY = 80;
 										int row = 0;
 										for (Tags tag : selectedTagList) {
@@ -359,7 +364,7 @@ public class SensorDashboardPart {
 											event.gc.drawText(""+tag.getTagid() , selectedPoint.x+pointX, selectedPoint.y + pointY);
 											row++;
 											pointY = pointY + fontHeight;
-											if(row == 10) {
+											if(row >= 7) {
 												row = 0;
 												pointX = pointX + 50;
 												pointY = 80;
@@ -523,37 +528,47 @@ public class SensorDashboardPart {
 	Label lblNewLabel_1;
 	Label lblNewLabel_2;
 	Label lblNewLabel_3;
+	private Timestamp time_s = Timestamp.valueOf("1900-01-01 00:00:00") ;
 
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
 		em.clear();
 		em.getEntityManagerFactory().getCache().evictAll();
-        Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
-        qMaxTime.setFirstResult(0);
+        Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc ");
+        qMaxTime.setFirstResult(1);
         qMaxTime.setMaxResults(1);
         Tags tag = (Tags) qMaxTime.getSingleResult();
 
         // 태그 리스트 중 중복 제거 
-        Query qTags = em.createQuery("select t from Tags t where t.time = :time");
-        qTags.setParameter("time", tag.getTime());
-        List<Tags> tagListTemp = qTags.getResultList();
-        tagList.clear();
-		for (Tags tag1 : tagListTemp) {
-			int cnt = 0;
-			for (Tags tag2 : tagList) {
-				if(tag2.getTagid() == tag1.getTagid()) {
-					if(tag1.getRssi() < tag2.getRssi()) { // tag1의 신호가 더 세면
-						tagList.remove(tag2);
-						tagList.add(tag1);
+        if (time_s.compareTo( tag.getTime() ) < 0 )  {
+        	time_s = tag.getTime();
+	        // 태그 리스트 중 중복 제거 
+	        Query qTags = em.createQuery("select t from Tags t where t.time = :time");
+	        qTags.setParameter("time", tag.getTime());
+	        List<Tags> tagListTemp = qTags.getResultList();
+	        List<Tags> tagUniq = new ArrayList<Tags>();
+	        tagList.clear();
+	        for (Tags tag1 : tagListTemp) {
+	        	int sw = 0;
+	        	for (Tags t : tagUniq ) {
+	        		if (tag1.getTagid() == t.getTagid()) {
+	        			sw = 1; break ;
+	        		}
+	        	}
+	        	if (sw == 0) tagUniq.add(tag1) ;
+	        }
+			for (Tags tag1 : tagUniq) {
+				Tags s_tag = tag1 ;
+				for (Tags tag2 : tagListTemp) {
+					if(s_tag.getTagid() == tag2.getTagid()) {
+						if(s_tag.getRssi() > tag2.getRssi()) { // tag2의 신호가 더 세면
+							s_tag = tag2 ;
+						}
 					}
-					cnt++;
-					break;
 				}
+				tagList.add(s_tag) ;
 			}
-			if(cnt == 0) {
-				tagList.add(tag1);
-			}
-		}
+        }
        
 		beforeTagCnt = activeTagCnt;
 		beforeSosTagCnt = sosTagCnt;

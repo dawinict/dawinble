@@ -2,10 +2,10 @@
 package kairos.kongde;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,28 +28,14 @@ import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -63,21 +49,16 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 import kairos.kongde.entity.Ap;
-import kairos.kongde.entity.Sensor;
 import kairos.kongde.entity.Tags;
 
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class DashboardPart {
 	private static class ContentProvider_1 implements IStructuredContentProvider {
@@ -156,12 +137,14 @@ public class DashboardPart {
     Label lblTagInactive;
     Label lblAlertActive;
     Label lblAlertInactive;
-   
+    Label lblDate, lblTime;
     
     private Table table;
     TableViewer tableViewer;
     TableViewer tableViewer_1;
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    DateFormat dateFmt1 = new SimpleDateFormat("yyyy-MM-dd");
+    DateFormat dateFmt2 = new SimpleDateFormat("HH:mm:ss");
     
 	@PostConstruct
 	public void postConstruct(Composite parent) {
@@ -325,7 +308,7 @@ public class DashboardPart {
 		gd_composite_17.heightHint = 45;
 		composite_17.setLayoutData(gd_composite_17);
 		
-		Button lblNewLabel10 = new Button(composite_17, SWT.NONE);
+		Label lblNewLabel10 = new Label(composite_17, SWT.NONE);
 		lblNewLabel10.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
 		lblNewLabel10.setText("Setup Gateway");
 		
@@ -338,6 +321,7 @@ public class DashboardPart {
 		composite_16.setLayoutData(gd_composite_16);
 		
 		Label lblNewLabel11 = new Label(composite_16, SWT.NONE);
+		lblNewLabel11.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblNewLabel11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -380,6 +364,7 @@ public class DashboardPart {
 		composite_19.setLayoutData(gd_composite_19);
 		
 		Label lblNewLabel13 = new Label(composite_19, SWT.NONE);
+		lblNewLabel13.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblNewLabel13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -412,6 +397,7 @@ public class DashboardPart {
 		composite_20.setLayoutData(gd_composite_20);
 		
 		Label lblNewLabel14 = new Label(composite_20, SWT.NONE);
+		lblNewLabel14.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblNewLabel14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -443,50 +429,64 @@ public class DashboardPart {
 		
 		lblApActive = new Label(composite_15, SWT.NONE);
 		lblApActive.setAlignment(SWT.RIGHT);
-		lblApActive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
+		lblApActive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
 		lblApActive.setBounds(300, 200, 50, 61);
 		lblApActive.setText("99");
 		lblApActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblApInactive = new Label(composite_15, SWT.NONE);
 		lblApInactive.setAlignment(SWT.RIGHT);
-		lblApInactive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
+		lblApInactive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
 		lblApInactive.setBounds(300, 260, 50, 61);
 		lblApInactive.setText("99");
 		lblApInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblTagActive = new Label(composite_15, SWT.NONE);
 		lblTagActive.setAlignment(SWT.RIGHT);
-		lblTagActive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
+		lblTagActive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
 		lblTagActive.setBounds(800, 200, 50, 61);
 		lblTagActive.setText("99");
 		lblTagActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblTagInactive = new Label(composite_15, SWT.NONE);
 		lblTagInactive.setAlignment(SWT.RIGHT);
-		lblTagInactive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
-		lblTagInactive.setBounds(800, 260, 41, 61);
+		lblTagInactive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblTagInactive.setBounds(800, 260, 50, 61);
 		lblTagInactive.setText(" 0");
 		lblTagInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblAlertActive = new Label(composite_15, SWT.NONE);
 		lblAlertActive.setAlignment(SWT.RIGHT);
-		lblAlertActive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
+		lblAlertActive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
 		lblAlertActive.setBounds(1300, 200, 41, 61);
 		lblAlertActive.setText(" 0");
 		lblAlertActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblAlertInactive = new Label(composite_15, SWT.NONE);
 		lblAlertInactive.setAlignment(SWT.RIGHT);
-		lblAlertInactive.setFont(new Font(null, "¸¼Àº °íµñ", 38, SWT.NORMAL));
+		lblAlertInactive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
 		lblAlertInactive.setBounds(1300, 260, 41, 61);
 		lblAlertInactive.setText(" 0");
 		lblAlertInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		Label lblNewLabel_4 = new Label(composite_15, SWT.NONE);
-		lblNewLabel_4.setBounds(0, 0, 1647, 528);
+		lblNewLabel_4.setBounds(0, 0, 1647, 600);
 		lblNewLabel_4.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblNewLabel_4.setBackgroundImage(resourceManager.createImage(slice_page1));
+		
+		Label lbldate_1 = new Label(composite_15, SWT.NONE);
+		lbldate_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		lbldate_1.setForeground(SWTResourceManager.getColor(102, 102, 102));
+		lbldate_1.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 16, SWT.BOLD));
+		lbldate_1.setBounds(1300, 100, 0, 0);
+		lbldate_1.setText("Date ");
+		
+		lblDate = new Label(composite_15, SWT.NONE);
+		lblDate.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		lblDate.setForeground(SWTResourceManager.getColor(102, 102, 102));
+		lblDate.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 16, SWT.BOLD));
+		lblDate.setBounds(1360, 100, 100, 50);
+		lblDate.setText("2019-02-02");
 		
 		Composite composite_3 = new Composite(composite, SWT.NONE);
 		GridLayout gl_composite_3 = new GridLayout(2, true);
@@ -752,38 +752,46 @@ public class DashboardPart {
 	int activeTagCnt = 0;
 	int sosTagCnt = 0;
 	private Table table_1;
+	private Timestamp time_s = Timestamp.valueOf("1900-01-01 00:00:00") ;
 
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
 		em.clear();
 		em.getEntityManagerFactory().getCache().evictAll();
-        Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc");
-        qMaxTime.setFirstResult(0);
+        Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc ");
+        qMaxTime.setFirstResult(1);
         qMaxTime.setMaxResults(1);
         Tags tag = (Tags) qMaxTime.getSingleResult();
-
-        // ÅÂ±× ¸®½ºÆ® Áß Áßº¹ Á¦°Å 
-        Query qTags = em.createQuery("select t from Tags t where t.time = :time");
-        qTags.setParameter("time", tag.getTime());
-        List<Tags> tagListTemp = qTags.getResultList();
-        tagList.clear();
-		for (Tags tag1 : tagListTemp) {
-			int cnt = 0;
-			for (Tags tag2 : tagList) {
-				if(tag2.getTagid() == tag1.getTagid()) {
-					if(tag1.getRssi() < tag2.getRssi()) { // tag1ÀÇ ½ÅÈ£°¡ ´õ ¼¼¸é
-						tagList.remove(tag2);
-						tagList.add(tag1);
+        
+        if (time_s.compareTo( tag.getTime() ) < 0 )  {
+        	time_s = tag.getTime();
+	        // ÅÂ±× ¸®½ºÆ® Áß Áßº¹ Á¦°Å 
+	        Query qTags = em.createQuery("select t from Tags t where t.time = :time");
+	        qTags.setParameter("time", tag.getTime());
+	        List<Tags> tagListTemp = qTags.getResultList();
+	        List<Tags> tagUniq = new ArrayList<Tags>();
+	        tagList.clear();
+	        for (Tags tag1 : tagListTemp) {
+	        	int sw = 0;
+	        	for (Tags t : tagUniq ) {
+	        		if (tag1.getTagid() == t.getTagid()) {
+	        			sw = 1; break ;
+	        		}
+	        	}
+	        	if (sw == 0) tagUniq.add(tag1) ;
+	        }
+			for (Tags tag1 : tagUniq) {
+				Tags s_tag = tag1 ;
+				for (Tags tag2 : tagListTemp) {
+					if(s_tag.getTagid() == tag2.getTagid()) {
+						if(s_tag.getRssi() > tag2.getRssi()) { // tag2ÀÇ ½ÅÈ£°¡ ´õ ¼¼¸é
+							s_tag = tag2 ;
+						}
 					}
-					cnt++;
-					break;
 				}
+				tagList.add(s_tag) ;
 			}
-			if(cnt == 0) {
-				tagList.add(tag1);
-			}
-		}
-       
+        }
         
         activeTagCnt = 0;
         sosTagCnt = 0;
@@ -840,7 +848,7 @@ public class DashboardPart {
 				//String apStatus = "È°¼º : " + activeCnt + " | ºñÈ°¼º : " + inactiveCnt;
 				//String tagStatus = "È°¼º : " + activeTagCnt + " | SOS : " + sosTagCnt;
 
-				
+				lblDate.setText(dateFmt1.format(time_s ) );
 				lblApActive.setText(activeCnt+"");
 				lblApInactive.setText(inactiveCnt+"");
 
