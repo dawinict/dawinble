@@ -10,6 +10,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import org.eclipse.swt.widgets.Composite;
@@ -73,6 +76,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class SensorDashboardPart {
 	@Inject UISynchronize sync;
@@ -200,7 +204,7 @@ public class SensorDashboardPart {
 		composite_1.setBackgroundImage(resourceManager.createImage(slice_page2_1));
 		
 		lblNewLabel_7 = new Label(composite_1, SWT.NONE);
-		lblNewLabel_7.setLocation(350, 60);
+		lblNewLabel_7.setLocation(350, 63);
 		lblNewLabel_7.setSize(152, 45);
 		lblNewLabel_7.setFont(new Font(null, "¸¼Àº °íµñ", 28, SWT.NORMAL));
 		lblNewLabel_7.setText("New Label");
@@ -259,6 +263,14 @@ public class SensorDashboardPart {
 		lblNewLabel_3.setBounds(1490, 130, 56, 15);
 		lblNewLabel_3.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		lblNewLabel_3.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		
+		lblTimeInterval = new Label(composite_1, SWT.NONE);
+		lblTimeInterval.setAlignment(SWT.RIGHT);
+		lblTimeInterval.setText("Time Interval 5 sec.");
+		lblTimeInterval.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblTimeInterval.setFont(SWTResourceManager.getFont("¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblTimeInterval.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		lblTimeInterval.setBounds(420, 160, 244, 20);
 		
 		Composite composite_21 = new Composite(composite, SWT.NONE);
 		composite_21.setLayout(new GridLayout(3, false));
@@ -394,6 +406,7 @@ public class SensorDashboardPart {
 		composite_5.setBackgroundImage(resourceManager.createImage(slice_page2_2));
 		
 		Label lblBack = new Label(composite_5, SWT.NONE);
+		lblBack.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -462,43 +475,33 @@ public class SensorDashboardPart {
 		composite_8.setLayout(new GridLayout(1, false));
 		composite_8.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		composite_8.setBackgroundImage(resourceManager.createImage(category_mote));
-		//canvas.setBackgroundImage(image);
-
-//		ServerPushSession pushSession = new ServerPushSession();
 		Runnable runnable = new Runnable() {
 		
 			@Override
 			public void run() {
-				while(true){
+//				while(true){
 					em.clear();
 					refreshSensorList();
 					sync.syncExec(()->{
 						canvas.redraw();
-//						pushSession.stop();
 					});
 
-//					System.out.println("ZZZZ");
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					
-				}
+//					try {
+//						Thread.sleep(5000);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//					
+//				}
 			}
 		};
-//		pushSession.start();
-			Thread uiUpdateThread = new Thread(runnable);
-//			uiUpdateThread.setDaemon(true);
-			uiUpdateThread.start();
+		
+	    ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+	    service.scheduleAtFixedRate(runnable, 0, 5000, TimeUnit.MILLISECONDS);
+
+//			Thread uiUpdateThread = new Thread(runnable);
+//			uiUpdateThread.start();
 			
-//			 String code =   "window.setInterval( function() {\n"
-//		               + "  rwt.remote.Connection.getInstance().send();\n"
-//		               + "}, 5000 );"; // polling interval in ms
-//		 JavaScriptExecutor executor = RWT.getClient().getService( JavaScriptExecutor.class );
-//		 if( executor != null ) {
-//		     executor.execute( code );
-//		 }
 	}
 
 	@PreDestroy
@@ -529,13 +532,14 @@ public class SensorDashboardPart {
 	Label lblNewLabel_2;
 	Label lblNewLabel_3;
 	private Timestamp time_s = Timestamp.valueOf("1900-01-01 00:00:00") ;
+	private Label lblTimeInterval;
 
 	@SuppressWarnings("unchecked")
 	public void refreshSensorList() {
 		em.clear();
 		em.getEntityManagerFactory().getCache().evictAll();
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc ");
-        qMaxTime.setFirstResult(1);
+        qMaxTime.setFirstResult(0);
         qMaxTime.setMaxResults(1);
         Tags tag = (Tags) qMaxTime.getSingleResult();
 

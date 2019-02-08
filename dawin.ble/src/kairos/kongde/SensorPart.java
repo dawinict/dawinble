@@ -328,6 +328,7 @@ public class SensorPart {
 		composite_16.setLayoutData(gd_composite_16);
 		
 		Label lblNewLabel11 = new Label(composite_16, SWT.NONE);
+		lblNewLabel11.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblNewLabel11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -373,6 +374,7 @@ public class SensorPart {
 		composite_19.setLayoutData(gd_composite_19);
 		
 		Label lblNewLabel13 = new Label(composite_19, SWT.NONE);
+		lblNewLabel13.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblNewLabel13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -405,6 +407,7 @@ public class SensorPart {
 		composite_20.setLayoutData(gd_composite_20);
 		
 		Label lblNewLabel14 = new Label(composite_20, SWT.NONE);
+		lblNewLabel14.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 		lblNewLabel14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {

@@ -39,7 +39,7 @@ public class Main {
 	
 	private static String dbConnect = "jdbc:mariadb://localhost:3306/dawinble";
 	private static String dbUser = "root";
-	private static String dbPassword = "root";
+	private static String dbPassword = "dawinit1";
 	private static String restConnect = "http://59.6.192.225:9988/";
 	
 	public static void main(String[] args) {
@@ -187,6 +187,7 @@ public class Main {
 //		            			System.out.println(timeStamp + "***" + apid+":"+tagid+":"+rssi+":"+sos+":"+batt);
 		            			
 		            			insertStatement.close();
+		            			connection.commit();
 
 							}
 						}
@@ -319,9 +320,11 @@ public class Main {
 				
 			}
 		};
+	    service.scheduleAtFixedRate(runnableTags, 0, 5000, TimeUnit.MILLISECONDS);
+	    service.scheduleAtFixedRate(runnableApdevs, 0, 5000, TimeUnit.MILLISECONDS);
 		
-		service.scheduleWithFixedDelay(runnableTags, 0, 5, TimeUnit.SECONDS);
-		service.scheduleWithFixedDelay(runnableApdevs, 0, 10, TimeUnit.SECONDS);
+//		service.scheduleWithFixedDelay(runnableTags, 0, 5, TimeUnit.SECONDS);
+//		service.scheduleWithFixedDelay(runnableApdevs, 0, 10, TimeUnit.SECONDS);
 	
 
 		

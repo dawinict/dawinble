@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -30,35 +30,35 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.wb.swt.SWTResourceManager;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 import kairos.kongde.entity.Ap;
 import kairos.kongde.entity.Tags;
-
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.wb.swt.SWTResourceManager;
 
 public class DashboardPart {
 	private static class ContentProvider_1 implements IStructuredContentProvider {
@@ -474,19 +474,26 @@ public class DashboardPart {
 		lblNewLabel_4.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblNewLabel_4.setBackgroundImage(resourceManager.createImage(slice_page1));
 		
-		Label lbldate_1 = new Label(composite_15, SWT.NONE);
+		Label lbldate_1 = new Label(composite_15, SWT.SHADOW_IN);
 		lbldate_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		lbldate_1.setForeground(SWTResourceManager.getColor(102, 102, 102));
-		lbldate_1.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 16, SWT.BOLD));
-		lbldate_1.setBounds(1300, 100, 0, 0);
+		lbldate_1.setForeground(SWTResourceManager.getColor(0, 0, 0));
+		lbldate_1.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 20, SWT.NORMAL));
+		lbldate_1.setBounds(1350, 90, 50, 20);
 		lbldate_1.setText("Date ");
 		
 		lblDate = new Label(composite_15, SWT.NONE);
 		lblDate.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		lblDate.setForeground(SWTResourceManager.getColor(102, 102, 102));
-		lblDate.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 16, SWT.BOLD));
-		lblDate.setBounds(1360, 100, 100, 50);
+		lblDate.setForeground(SWTResourceManager.getColor(0, 0, 0));
+		lblDate.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 16, SWT.NORMAL));
+		lblDate.setBounds(1400, 93, 155, 20);
 		lblDate.setText("2019-02-02");
+
+		Label lblinterval = new Label(composite_15, SWT.NONE);
+		lblinterval.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		lblinterval.setForeground(SWTResourceManager.getColor(0, 0, 0));
+		lblinterval.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 20, SWT.NORMAL));
+		lblinterval.setBounds(1350, 120, 200, 20);
+		lblinterval.setText("Time Interval  5 sec ");
 		
 		Composite composite_3 = new Composite(composite, SWT.NONE);
 		GridLayout gl_composite_3 = new GridLayout(2, true);
@@ -704,31 +711,29 @@ public class DashboardPart {
 		
 			@Override
 			public void run() {
-				while(true){
-					//em.clear();
-					refreshSensorList();
-					//System.out.println("ZZZZ");
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					
-				}
+				refreshSensorList();
+//				
+//				while(true){
+//					refreshSensorList();
+//					try {
+//						Thread.sleep(5000);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//				}
 			}
 		};
-//		pushSession.start();
+
+	    ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+	    service.scheduleAtFixedRate(runnable, 0, 5000, TimeUnit.MILLISECONDS);
+	 
+
+
+	/*		
 			Thread uiUpdateThread = new Thread(runnable);
-//			uiUpdateThread.setDaemon(true);
+
 			uiUpdateThread.start();
-			
-//			 String code =   "window.setInterval( function() {\n"
-//		               + "  rwt.remote.Connection.getInstance().send();\n"
-//		               + "}, 5000 );"; // polling interval in ms
-//		 JavaScriptExecutor executor = RWT.getClient().getService( JavaScriptExecutor.class );
-//		 if( executor != null ) {
-//		     executor.execute( code );
-//		 }
+*/			
 	}
 
 	@PreDestroy
@@ -759,7 +764,7 @@ public class DashboardPart {
 		em.clear();
 		em.getEntityManagerFactory().getCache().evictAll();
         Query qMaxTime = em.createQuery("select t from Tags t order by t.time desc ");
-        qMaxTime.setFirstResult(1);
+        qMaxTime.setFirstResult(0);
         qMaxTime.setMaxResults(1);
         Tags tag = (Tags) qMaxTime.getSingleResult();
         
@@ -848,7 +853,7 @@ public class DashboardPart {
 				//String apStatus = "È°¼º : " + activeCnt + " | ºñÈ°¼º : " + inactiveCnt;
 				//String tagStatus = "È°¼º : " + activeTagCnt + " | SOS : " + sosTagCnt;
 
-				lblDate.setText(dateFmt1.format(time_s ) );
+				lblDate.setText(dateFormat.format(time_s ) );
 				lblApActive.setText(activeCnt+"");
 				lblApInactive.setText(inactiveCnt+"");
 
