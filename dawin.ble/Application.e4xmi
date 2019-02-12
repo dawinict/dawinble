@@ -29,7 +29,14 @@
         <children xsi:type="basic:Part" xmi:id="_oBcqkCTJEemdaL1joykn8A" elementId="dawin.ble.part.2" contributionURI="bundleclass://kairos.kongde/kairos.kongde.DashboardPart"/>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_B32h4CUMEemirpglNwf5bA" elementId="dawin.ble.perspective.moteconfig" label="MoteConfig">
-        <children xsi:type="basic:Part" xmi:id="_IGhDkCUMEemirpglNwf5bA" elementId="dawin.ble.part.0" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPart"/>
+        <children xsi:type="basic:Part" xmi:id="_IGhDkCUMEemirpglNwf5bA" elementId="dawin.ble.part.0" contributionURI="bundleclass://kairos.kongde/kairos.kongde.SensorPart">
+          <handlers xmi:id="_CF1kIC3LEemh47S2AErBLQ" elementId="dawin.ble.handler.add" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigAddHandler" command="_aySZEDCOEeiKOIqdSCXBWw"/>
+          <handlers xmi:id="_PS2_EC3LEemh47S2AErBLQ" elementId="dawin.ble.handler.delete" contributionURI="bundleclass://kairos.kongde/kairos.kongde.ConfigDeleteHandler" command="_rPMQYDCOEeiKOIqdSCXBWw"/>
+          <menus xsi:type="menu:PopupMenu" xmi:id="_WYW3kC3KEemh47S2AErBLQ" elementId="dawin.ble.popupmenu.config">
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_lGUg0C3KEemh47S2AErBLQ" elementId="dawin.ble.handledmenuitem.add" label="Add" iconURI="platform:/plugin/kairos.kongde/icons/plus16.png" command="_aySZEDCOEeiKOIqdSCXBWw"/>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_5KjEIC3KEemh47S2AErBLQ" elementId="dawin.ble.handledmenuitem.delete" label="Delete" iconURI="platform:/plugin/kairos.kongde/icons/minus16.png" command="_rPMQYDCOEeiKOIqdSCXBWw"/>
+          </menus>
+        </children>
       </children>
     </children>
     <handlers xmi:id="_DKc3cCswEei4GNg1egFDaA" elementId="kairos.kongde.handler.topichandler" contributionURI="bundleclass://kairos.kongde/kairos.kongde.TopicHandler" command="_WwQ14CsvEei4GNg1egFDaA"/>

@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +14,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -32,51 +28,35 @@ import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
-import org.eclipse.rap.rwt.service.ServerPushSession;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.resource.ResourceManager;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 import kairos.kongde.entity.Ap;
-import kairos.kongde.entity.Sensor;
 import kairos.kongde.entity.Tags;
-
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.wb.swt.SWTResourceManager;
 
 public class SensorDashboardPart {
 	@Inject UISynchronize sync;
@@ -267,9 +247,9 @@ public class SensorDashboardPart {
 		lblTimeInterval = new Label(composite_1, SWT.NONE);
 		lblTimeInterval.setAlignment(SWT.RIGHT);
 		lblTimeInterval.setText("Time Interval 5 sec.");
-		lblTimeInterval.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblTimeInterval.setFont(SWTResourceManager.getFont("¸¼Àº °íµñ", 18, SWT.NORMAL));
-		lblTimeInterval.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
+		lblTimeInterval.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		lblTimeInterval.setFont(new Font(null,"¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblTimeInterval.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		lblTimeInterval.setBounds(420, 160, 244, 20);
 		
 		Composite composite_21 = new Composite(composite, SWT.NONE);
@@ -406,7 +386,7 @@ public class SensorDashboardPart {
 		composite_5.setBackgroundImage(resourceManager.createImage(slice_page2_2));
 		
 		Label lblBack = new Label(composite_5, SWT.NONE);
-		lblBack.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblBack.setCursor(new Cursor(Display.getCurrent(),SWT.CURSOR_HAND));
 		lblBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {

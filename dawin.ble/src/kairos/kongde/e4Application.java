@@ -62,19 +62,18 @@ public class e4Application implements ApplicationConfiguration {
 	@PreDestroy
 	public void preDestroy() {
 	}
-
    
     public void configure(Application application) {
     	//application.addStyleSheet( "kairos.kongde.theme", "css/business.css" );
         Map<String, String> properties = new HashMap<String, String>();
-        properties.put(WebClient.PAGE_TITLE, "Kongde");
+        properties.put(WebClient.PAGE_TITLE, "Ble");
         E4ApplicationConfig config = E4ApplicationConfig.create(E4XMI);
         //E4ApplicationConfig config = E4ApplicationConfig.create(E4XMI,"bundleclass://kairos.kongde/kairos.kongde.E4LifeCycle");
         E4EntryPointFactory entryPointFactory = new E4EntryPointFactory(config);
         
         //properties.put( WebClient.THEME_ID, "kairos.kongde.theme" );
         
-        application.addEntryPoint("/kongde", entryPointFactory, properties);
+        application.addEntryPoint("/", entryPointFactory, properties);
         application.setOperationMode( OperationMode.SWT_COMPATIBILITY );
         
         

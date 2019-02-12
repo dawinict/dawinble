@@ -40,7 +40,7 @@ public class Main {
 	private static String dbConnect = "jdbc:mariadb://localhost:3306/dawinble";
 	private static String dbUser = "root";
 	private static String dbPassword = "dawinit1";
-	private static String restConnect = "http://59.6.192.225:9988/";
+	private static String restConnect = "http://localhost:9988/";
 	
 	public static void main(String[] args) {
 		try {
@@ -49,7 +49,6 @@ public class Main {
 			e1.printStackTrace();
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		DateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
 		
         String configFile = "config.xml";
         File file = new File(configFile);
@@ -132,6 +131,7 @@ public class Main {
 		            JSONParser jsonParser = new JSONParser();
 		            //JSONObject jsonObj = (JSONObject) jsonParser.parse(responseBody);
 		            JSONArray jsonArray = (JSONArray) jsonParser.parse(responseBody);
+		            
 		            for (int i = 0; i < jsonArray.size(); i++) {
 		            	JSONObject tempObj = (JSONObject) jsonArray.get(i);
 //		            	System.out.println(tempObj.get("tm"));
@@ -192,7 +192,10 @@ public class Main {
 							}
 						}
 					}
-//					JSONArray list = new JSONArray();
+		            String sql = new StringBuilder().append("DELETE FROM tags where date_add(time ,interval 1 day) < now() ; \n").toString();
+        			PreparedStatement delStatement = connection.prepareStatement(sql);
+        			delStatement.executeUpdate();
+        			delStatement.close();
 
 		        } catch (ClientProtocolException e) {
 					e.printStackTrace();

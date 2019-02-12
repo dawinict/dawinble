@@ -20,6 +20,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.UIManager;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -39,10 +40,12 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.rap.rwt.scripting.ClientListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -53,12 +56,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.wb.swt.SWTResourceManager;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 import kairos.kongde.entity.Ap;
 import kairos.kongde.entity.Tags;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 
 public class DashboardPart {
 	private static class ContentProvider_1 implements IStructuredContentProvider {
@@ -148,7 +152,16 @@ public class DashboardPart {
     
 	@PostConstruct
 	public void postConstruct(Composite parent) {
-		
+
+		String scMouseEnter = 
+				"var handleEvent = function(event) { "
+				+ " event.widget.$el.css('font-weight', 'bold');  "
+				+ "}";
+		String scMouseExit = 
+				"var handleEvent = function(event) { "
+				+ " event.widget.$el.css('font-weight', 'normal');  "
+				+ "}";
+		Font font18 = new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL) ;
 		ResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
 //        URL url = FileLocator.find(bundle, new Path("icons/floor.jpg"), null);
@@ -199,7 +212,7 @@ public class DashboardPart {
 		composite_6.setBackground(new Color (Display.getCurrent(), 159, 170, 222));
 		
 		Label lblNewLabel2 = new Label(composite_6, SWT.NONE);
-		lblNewLabel2.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel2.setFont(font18);
 		lblNewLabel2.setText("Dashboard");
 		lblNewLabel2.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		lblNewLabel2.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
@@ -214,7 +227,7 @@ public class DashboardPart {
 		composite_7.setBackground(new Color (Display.getCurrent(), 159, 170, 222));
 		
 		Label lblNewLabel3 = new Label(composite_7, SWT.NONE);
-		lblNewLabel3.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel3.setFont(font18);
 		lblNewLabel3.setText("Real Time Sensor");
 		lblNewLabel3.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		lblNewLabel3.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
@@ -240,7 +253,7 @@ public class DashboardPart {
 		composite_9.setLayoutData(gd_composite_9);
 		
 		Label lblNewLabel5 = new Label(composite_9, SWT.NONE);
-		lblNewLabel5.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel5.setFont(font18);
 		lblNewLabel5.setText("Mote Status");
 		
 		Composite composite_10 = new Composite(composite_5, SWT.NONE);
@@ -252,7 +265,7 @@ public class DashboardPart {
 		composite_10.setLayoutData(gd_composite_10);
 		
 		Label lblNewLabel6 = new Label(composite_10, SWT.NONE);
-		lblNewLabel6.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel6.setFont(font18);
 		lblNewLabel6.setText("Sensor Status");
 		
 		Composite composite_11 = new Composite(composite_5, SWT.NONE);
@@ -264,7 +277,7 @@ public class DashboardPart {
 		composite_11.setLayoutData(gd_composite_11);
 		
 		Label lblNewLabel7 = new Label(composite_11, SWT.NONE);
-		lblNewLabel7.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel7.setFont(font18);
 		lblNewLabel7.setText("Network Status");
 		
 		Composite composite_12 = new Composite(composite_5, SWT.NONE);
@@ -297,7 +310,7 @@ public class DashboardPart {
 		composite_14.setLayoutData(gd_composite_14);
 		
 		Label lblNewLabel9 = new Label(composite_14, SWT.NONE);
-		lblNewLabel9.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel9.setFont(font18);
 		lblNewLabel9.setText("Configuration");
 		
 		Composite composite_17 = new Composite(composite_5, SWT.NONE);
@@ -309,7 +322,7 @@ public class DashboardPart {
 		composite_17.setLayoutData(gd_composite_17);
 		
 		Label lblNewLabel10 = new Label(composite_17, SWT.NONE);
-		lblNewLabel10.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel10.setFont(font18);
 		lblNewLabel10.setText("Setup Gateway");
 		
 		Composite composite_16 = new Composite(composite_5, SWT.NONE);
@@ -321,7 +334,7 @@ public class DashboardPart {
 		composite_16.setLayoutData(gd_composite_16);
 		
 		Label lblNewLabel11 = new Label(composite_16, SWT.NONE);
-		lblNewLabel11.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblNewLabel11.setCursor(new Cursor(Display.getCurrent(), SWT.CURSOR_HAND));
 		lblNewLabel11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -331,8 +344,10 @@ public class DashboardPart {
 		        }
 			}
 		});
-		lblNewLabel11.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
-		lblNewLabel11.setText("Register Mote");
+		lblNewLabel11.setFont(font18);
+		lblNewLabel11.setText("Register Mote  ");
+//		lblNewLabel11.addListener(SWT.MouseEnter, new ClientListener(scMouseEnter));
+//		lblNewLabel11.addListener(SWT.MouseExit, new ClientListener(scMouseExit));
 		
 		Composite composite_18 = new Composite(composite_5, SWT.NONE);
 		GridLayout gl_composite_18 = new GridLayout(1, false);
@@ -343,7 +358,7 @@ public class DashboardPart {
 		composite_18.setLayoutData(gd_composite_18);
 		
 		Label lblNewLabel12 = new Label(composite_18, SWT.NONE);
-		lblNewLabel12.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
+		lblNewLabel12.setFont(font18);
 		lblNewLabel12.setText("Register Sensor");
 		
 		Composite composite_19 = new Composite(composite_5, SWT.NONE);
@@ -364,7 +379,7 @@ public class DashboardPart {
 		composite_19.setLayoutData(gd_composite_19);
 		
 		Label lblNewLabel13 = new Label(composite_19, SWT.NONE);
-		lblNewLabel13.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblNewLabel13.setCursor(new Cursor(Display.getCurrent(),SWT.CURSOR_HAND));
 		lblNewLabel13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -374,8 +389,8 @@ public class DashboardPart {
 		        }
 			}
 		});
-		lblNewLabel13.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
-		lblNewLabel13.setText("LBS Dashboard");
+		lblNewLabel13.setFont(font18);
+		lblNewLabel13.setText("LBS Dashboard  ");
 		
 		Composite composite_20 = new Composite(composite_5, SWT.NONE);
 		composite_20.addMouseListener(new MouseAdapter() {
@@ -397,7 +412,7 @@ public class DashboardPart {
 		composite_20.setLayoutData(gd_composite_20);
 		
 		Label lblNewLabel14 = new Label(composite_20, SWT.NONE);
-		lblNewLabel14.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblNewLabel14.setCursor(new Cursor(Display.getCurrent(),SWT.CURSOR_HAND));
 		lblNewLabel14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -407,8 +422,8 @@ public class DashboardPart {
 		        }
 			}
 		});
-		lblNewLabel14.setFont(new Font(null, "¸¼Àº °íµñ", 18, SWT.NORMAL));
-		lblNewLabel14.setText("LBS Map");
+		lblNewLabel14.setFont(font18);
+		lblNewLabel14.setText("LBS Map  ");
 		
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -429,42 +444,42 @@ public class DashboardPart {
 		
 		lblApActive = new Label(composite_15, SWT.NONE);
 		lblApActive.setAlignment(SWT.RIGHT);
-		lblApActive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblApActive.setFont(new Font(null,"±¼¸²", 38, SWT.BOLD));
 		lblApActive.setBounds(300, 200, 50, 61);
 		lblApActive.setText("99");
 		lblApActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblApInactive = new Label(composite_15, SWT.NONE);
 		lblApInactive.setAlignment(SWT.RIGHT);
-		lblApInactive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblApInactive.setFont(new Font(null,"±¼¸²", 38, SWT.BOLD));
 		lblApInactive.setBounds(300, 260, 50, 61);
 		lblApInactive.setText("99");
 		lblApInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblTagActive = new Label(composite_15, SWT.NONE);
 		lblTagActive.setAlignment(SWT.RIGHT);
-		lblTagActive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblTagActive.setFont(new Font(null,"±¼¸²", 38, SWT.BOLD));
 		lblTagActive.setBounds(800, 200, 50, 61);
 		lblTagActive.setText("99");
 		lblTagActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblTagInactive = new Label(composite_15, SWT.NONE);
 		lblTagInactive.setAlignment(SWT.RIGHT);
-		lblTagInactive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblTagInactive.setFont(new Font(null,"±¼¸²", 38, SWT.BOLD));
 		lblTagInactive.setBounds(800, 260, 50, 61);
 		lblTagInactive.setText(" 0");
 		lblTagInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblAlertActive = new Label(composite_15, SWT.NONE);
 		lblAlertActive.setAlignment(SWT.RIGHT);
-		lblAlertActive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblAlertActive.setFont(new Font(null,"±¼¸²", 38, SWT.BOLD));
 		lblAlertActive.setBounds(1300, 200, 41, 61);
 		lblAlertActive.setText(" 0");
 		lblAlertActive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		
 		lblAlertInactive = new Label(composite_15, SWT.NONE);
 		lblAlertInactive.setAlignment(SWT.RIGHT);
-		lblAlertInactive.setFont(SWTResourceManager.getFont("±¼¸²", 38, SWT.BOLD));
+		lblAlertInactive.setFont(new Font(null,"±¼¸²", 38, SWT.BOLD));
 		lblAlertInactive.setBounds(1300, 260, 41, 61);
 		lblAlertInactive.setText(" 0");
 		lblAlertInactive.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
@@ -475,23 +490,23 @@ public class DashboardPart {
 		lblNewLabel_4.setBackgroundImage(resourceManager.createImage(slice_page1));
 		
 		Label lbldate_1 = new Label(composite_15, SWT.SHADOW_IN);
-		lbldate_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		lbldate_1.setForeground(SWTResourceManager.getColor(0, 0, 0));
-		lbldate_1.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 20, SWT.NORMAL));
+		lbldate_1.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lbldate_1.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+		lbldate_1.setFont(new Font(null,"³ª´®°íµñÄÚµù", 20, SWT.NORMAL));
 		lbldate_1.setBounds(1350, 90, 50, 20);
 		lbldate_1.setText("Date ");
 		
 		lblDate = new Label(composite_15, SWT.NONE);
-		lblDate.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		lblDate.setForeground(SWTResourceManager.getColor(0, 0, 0));
-		lblDate.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 16, SWT.NORMAL));
+		lblDate.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblDate.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+		lblDate.setFont(new Font(null,"³ª´®°íµñÄÚµù", 16, SWT.NORMAL));
 		lblDate.setBounds(1400, 93, 155, 20);
 		lblDate.setText("2019-02-02");
 
 		Label lblinterval = new Label(composite_15, SWT.NONE);
-		lblinterval.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
-		lblinterval.setForeground(SWTResourceManager.getColor(0, 0, 0));
-		lblinterval.setFont(SWTResourceManager.getFont("³ª´®°íµñÄÚµù", 20, SWT.NORMAL));
+		lblinterval.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
+		lblinterval.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+		lblinterval.setFont(new Font(null,"³ª´®°íµñÄÚµù", 20, SWT.NORMAL));
 		lblinterval.setBounds(1350, 120, 200, 20);
 		lblinterval.setText("Time Interval  5 sec ");
 		

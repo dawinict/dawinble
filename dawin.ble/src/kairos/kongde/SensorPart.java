@@ -70,6 +70,7 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -106,7 +107,6 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.wb.swt.SWTResourceManager;
 
 public class SensorPart {
 	private Ap ap;
@@ -146,7 +146,8 @@ public class SensorPart {
 
 //	MqttClient mqttClient;
 	ResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
-
+	
+	Cursor handc = new Cursor(Display.getCurrent(),SWT.CURSOR_HAND);
 	
 	@SuppressWarnings("serial")
 	@PostConstruct
@@ -328,7 +329,7 @@ public class SensorPart {
 		composite_16.setLayoutData(gd_composite_16);
 		
 		Label lblNewLabel11 = new Label(composite_16, SWT.NONE);
-		lblNewLabel11.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblNewLabel11.setCursor(handc);
 		lblNewLabel11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -357,13 +358,10 @@ public class SensorPart {
 		composite_19.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-//		    	MPart part1 = partService.findPart("dawin.ble.part.1");
-//		    	partService.hidePart(part1);
-//		    	//part1.setVisible(false);
-//		    	MPart part0 = partService.findPart("dawin.ble.part.0");
-//		    	//part0.setVisible(true);
-//		    	partService.showPart(part0, PartState.ACTIVATE);
-//		    	//sashContainer.setContainerData("20");
+		        MPerspective perspective = (MPerspective) modelService.find("dawin.ble.perspective.dashboard", app);
+		        if (perspective != null) {
+		            partService.switchPerspective(perspective);
+		        }
 			}
 		});
 		GridLayout gl_composite_19 = new GridLayout(1, false);
@@ -374,7 +372,7 @@ public class SensorPart {
 		composite_19.setLayoutData(gd_composite_19);
 		
 		Label lblNewLabel13 = new Label(composite_19, SWT.NONE);
-		lblNewLabel13.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblNewLabel13.setCursor(handc);
 		lblNewLabel13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -407,7 +405,7 @@ public class SensorPart {
 		composite_20.setLayoutData(gd_composite_20);
 		
 		Label lblNewLabel14 = new Label(composite_20, SWT.NONE);
-		lblNewLabel14.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		lblNewLabel14.setCursor(handc);
 		lblNewLabel14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -464,7 +462,7 @@ public class SensorPart {
 	            }
 			}
 		});
-		menuService.registerContextMenu(treeViewer.getControl(), "kairos.kongde.popupmenu.config");
+		menuService.registerContextMenu(treeViewer.getControl(), "dawin.ble.popupmenu.config");
 		
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
@@ -498,7 +496,7 @@ public class SensorPart {
 			}
 		});
 		Tree tree = treeViewer.getTree();
-		tree.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
+		tree.setCursor(handc);
 		tree.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, true, 1, 1));
 		tree.setSize(164, 288);
 		
@@ -1177,8 +1175,8 @@ public class SensorPart {
 				Ap apNew = new Ap();
 				apNew.setRemark("New Slave Mote");
 				apNew.setMac("New Slave Mote");
-				//sensorNew.setX(x);
-				//sensorNew.setY(y);
+				apNew.setX(20);
+				apNew.setY(20);
 				
 				em.getTransaction().begin();
 				em.persist(apNew);

@@ -560,8 +560,8 @@ public class ConfigPart {
 				Sensor sensorNew = new Sensor();
 				sensorNew.setRemark("New AP");
 				sensorNew.setAddress("New AP");
-				//sensorNew.setX(x);
-				//sensorNew.setY(y);
+				sensorNew.setX(20);
+				sensorNew.setY(20);
 				
 				em.getTransaction().begin();
 				em.persist(sensorNew);
